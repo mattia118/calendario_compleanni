@@ -21,14 +21,33 @@
       align-items: center;
     }
 
+    /* Header */
+    .header-top {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 0 10px;
+    }
+
+    .logo-gruppo {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #1a3d5e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .scout-icon {
-      font-size: 40px;
-      margin-bottom: 5px;
+      font-size: 32px;
     }
 
     h1 {
       text-align: center;
-      margin: 0;
+      margin: 10px 0 5px;
       font-size: 2em;
     }
 
@@ -230,7 +249,11 @@
 </head>
 <body>
 
-  <div class="scout-icon">⚜️</div>
+  <header class="header-top">
+    <div class="logo-gruppo">⛺ GRUPPO SCOUT CB4</div>
+    <div class="scout-icon">⚜️</div>
+  </header>
+
   <h1>Calendario Compleanni Scout</h1>
   <div id="mese-titolo"></div>
 
