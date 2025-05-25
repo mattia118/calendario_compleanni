@@ -138,3 +138,107 @@
     <button class="close-btn" onclick="chiudiPopup()">Chiudi</button>
   </div>
 
+  <script>
+    const mesi = [
+      "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio",
+      "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
+    ];
+
+    let meseCorrente = 4; // Maggio (0-index)
+    let annoCorrente = 2025;
+
+    const compleanni = {
+      "2025-05-08": "🎂 Luca Rossi",
+      "2025-06-15": "🎉 Giulia Bianchi",
+      "2025-07-01": "🎊 Marco Verdi",
+      "2025-12-24": "🎄 Anna Neri",
+      "2026-03-10": "🎈 Davide Gialli",
+      "2026-07-20": "🎁 Elisa Marrone"
+    };
+
+    function creaCalendario(mese, anno) {
+      const container = document.getElementById("calendar");
+      container.innerHTML = "";
+
+      document.getElementById("mese-titolo").textContent = `${mesi[mese]} ${anno}`;
+
+      const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
+      giorniSettimana.forEach(g => {
+        const d = document.createElement("div");
+        d.className = "day-name";
+        d.textContent = g;
+        container.appendChild(d);
+      });
+
+      const primoGiorno = new Date(anno, mese, 1);
+      let inizio = (primoGiorno.getDay() + 6) % 7;
+
+      for (let i = 0; i < inizio; i++) {
+        const vuoto = document.createElement("div");
+        container.appendChild(vuoto);
+      }
+
+      const giorniTotali = new Date(anno, mese + 1, 0).getDate();
+
+      for (let g = 1; g <= giorniTotali; g++) {
+        const dataStr = `${anno}-${String(mese+1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
+        const div = document.createElement("div");
+        div.className = "day";
+        div.textContent = g;
+
+        if (compleanni[dataStr]) {
+          const dot = document.createElement("div");
+          dot.className = "event-dot";
+          div.appendChild(dot);
+        }
+
+        div.onclick = () => mostraCompleanno(dataStr);
+        container.appendChild(div);
+      }
+    }
+
+    function mostraCompleanno(data) {
+      const testo = compleanni[data] || "Nessun compleanno oggi.";
+      document.getElementById("popup-title").innerText = data;
+      document.getElementById("popup-text").innerText = testo;
+      document.getElementById("popup").style.display = "block";
+      document.getElementById("overlay").style.display = "block";
+    }
+
+    function chiudiPopup() {
+      document.getElementById("popup").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
+    }
+
+    function cambiaMese(delta) {
+      meseCorrente += delta;
+      if (meseCorrente < 0) {
+        meseCorrente = 11;
+        annoCorrente--;
+      } else if (meseCorrente > 11) {
+        meseCorrente = 0;
+        annoCorrente++;
+      }
+
+      // Limiti da Maggio 2025 a Luglio 2026
+      if (annoCorrente < 2025 || (annoCorrente === 2025 && meseCorrente < 4) ||
+          annoCorrente > 2026 || (annoCorrente === 2026 && meseCorrente > 6)) {
+        alert("Intervallo valido: Maggio 2025 - Luglio 2026");
+        if (delta > 0) {
+          meseCorrente -= 1;
+          if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
+        } else {
+          meseCorrente += 1;
+          if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
+        }
+        return;
+      }
+
+      creaCalendario(meseCorrente, annoCorrente);
+    }
+
+    // Carica il primo mese all'avvio
+    creaCalendario(meseCorrente, annoCorrente);
+  </script>
+</body>
+</html>
