@@ -153,6 +153,66 @@
       cursor: pointer;
     }
 
+    .scout-section {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      padding: 30px 20px;
+      margin-top: 40px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      font-family: 'Georgia', serif;
+      text-align: center;
+    }
+
+    .scout-section h2 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      color: #1a3d5e;
+    }
+
+    .scout-columns {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .scout-legge ul {
+      text-align: left;
+      padding-left: 20px;
+      margin: 0;
+      list-style-type: "⚜️ ";
+      font-size: 1em;
+      line-height: 1.6;
+    }
+
+    .scout-promessa {
+      background: #d8eaff;
+      border-left: 6px solid #0077cc;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 1em;
+      color: #333;
+    }
+
+    .scout-promessa h3 {
+      margin-top: 0;
+      font-size: 1.2em;
+      color: #003366;
+    }
+
+    @media (min-width: 700px) {
+      .scout-columns {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 40px;
+      }
+
+      .scout-legge, .scout-promessa {
+        width: 48%;
+      }
+    }
+
     @media (max-width: 480px) {
       .day-name, .day {
         height: 60px;
@@ -188,13 +248,47 @@
     <button class="close-btn" onclick="chiudiPopup()">Chiudi</button>
   </div>
 
+  <div class="scout-section">
+    <h2>⚜️ Promessa e Legge Scout</h2>
+
+    <div class="scout-columns">
+      <div class="scout-legge">
+        <ul>
+          <li>“Pongono il loro onore nel meritare fiducia”</li>
+          <li>“Sono leali”</li>
+          <li>“Si rendono utili e aiutano gli altri”</li>
+          <li>“Sono amici di tutti e fratelli di ogni altra guida e scout”</li>
+          <li>“Sono cortesi”</li>
+          <li>“Amano e rispettano la natura”</li>
+          <li>“Sanno obbedire”</li>
+          <li>“Sorridono e cantano anche nelle difficoltà”</li>
+          <li>“Sono laboriosi ed economi”</li>
+          <li>“Sono puri di pensieri, parole e azioni”</li>
+        </ul>
+      </div>
+
+      <div class="scout-promessa">
+        <h3>PROMESSA SCOUT</h3>
+        <p>
+          Con l'aiuto di Dio<br>
+          prometto sul mio onore<br>
+          di fare del mio meglio:<br><br>
+          per compiere il mio dovere verso Dio<br>
+          e verso il mio paese,<br>
+          per aiutare gli altri in ogni circostanza,<br>
+          per osservare la Legge scout.
+        </p>
+      </div>
+    </div>
+  </div>
+
   <script>
     const mesi = [
       "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio",
       "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
     ];
 
-    let meseCorrente = 4; // Maggio
+    let meseCorrente = 4;
     let annoCorrente = 2025;
 
     const compleanni = {
@@ -247,7 +341,6 @@
         container.appendChild(div);
       }
 
-      // Mostra o nasconde il bottone "Mese Precedente"
       const btnPrev = document.getElementById("btn-prev");
       if (annoCorrente === 2025 && meseCorrente === 4) {
         btnPrev.style.display = "none";
