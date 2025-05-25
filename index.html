@@ -5,9 +5,10 @@
   <title>Calendario Compleanni Scout</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen;
+      background-color: #f3f3f3;
+      margin: 0;
       padding: 20px;
-      background-color: #f5f5f5;
       color: #333;
     }
 
@@ -18,23 +19,45 @@
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
-      max-width: 600px;
-      margin: 0 auto;
+      gap: 5px;
+      max-width: 700px;
+      margin: 20px auto;
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .day-name {
+      font-weight: bold;
+      text-align: center;
+      padding: 5px;
+      color: #666;
     }
 
     .day {
-      background-color: white;
-      border: 1px solid #ccc;
-      padding: 15px;
-      text-align: center;
+      height: 80px;
+      text-align: right;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      position: relative;
       cursor: pointer;
-      border-radius: 5px;
-      transition: 0.2s;
+      background-color: #fff;
     }
 
     .day:hover {
-      background-color: #e0f7fa;
+      background-color: #e0f0ff;
+    }
+
+    .event-dot {
+      width: 8px;
+      height: 8px;
+      background-color: red;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
     }
 
     .popup {
@@ -43,70 +66,93 @@
       top: 30%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-color: white;
+      background: white;
       padding: 20px;
-      border: 2px solid #555;
       border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
       z-index: 10;
-      width: 300px;
-      box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
     }
 
     .overlay {
       display: none;
       position: fixed;
       top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
       z-index: 5;
     }
 
     .close-btn {
       margin-top: 10px;
-      background-color: #2196F3;
+      background-color: #007aff;
       color: white;
-      padding: 5px 10px;
       border: none;
-      border-radius: 5px;
+      padding: 8px 12px;
+      border-radius: 6px;
       cursor: pointer;
     }
-
   </style>
 </head>
 <body>
 
-  <h1>📅 Calendario Compleanni Scout</h1>
-  <p style="text-align: center;">Clicca su un giorno per vedere se ci sono compleanni!</p>
+  <h1>📅 Calendario Compleanni - Maggio 2025</h1>
 
   <div class="calendar">
-    <div class="day" onclick="mostraCompleanno('1 Gennaio', 'Nessun compleanno')">1</div>
-    <div class="day" onclick="mostraCompleanno('2 Gennaio', 'Luca Rossi 🎉')">2</div>
-    <div class="day" onclick="mostraCompleanno('3 Gennaio', 'Nessun compleanno')">3</div>
-    <div class="day" onclick="mostraCompleanno('4 Gennaio', 'Giulia Bianchi 🎂')">4</div>
-    <div class="day" onclick="mostraCompleanno('5 Gennaio', 'Nessun compleanno')">5</div>
-    <!-- Aggiungi altri giorni così -->
+    <div class="day-name">Lun</div>
+    <div class="day-name">Mar</div>
+    <div class="day-name">Mer</div>
+    <div class="day-name">Gio</div>
+    <div class="day-name">Ven</div>
+    <div class="day-name">Sab</div>
+    <div class="day-name">Dom</div>
+
+    <!-- Vuoti per i giorni prima del 1° maggio (inizia di giovedì) -->
+    <div></div><div></div><div></div>
+
+    <!-- Giorni di maggio -->
+    <div class="day" onclick="mostraCompleanno(1)">1</div>
+    <div class="day" onclick="mostraCompleanno(2)">2</div>
+    <div class="day" onclick="mostraCompleanno(3)">3</div>
+    <div class="day" onclick="mostraCompleanno(4)">4</div>
+    <div class="day" onclick="mostraCompleanno(5)">5</div>
+    <div class="day" onclick="mostraCompleanno(6)">6</div>
+    <div class="day" onclick="mostraCompleanno(7)">7</div>
+    <!-- Aggiungi altri giorni se vuoi -->
+
+    <!-- Esempio: giorno con compleanno -->
+    <div class="day" onclick="mostraCompleanno(8)">8 <div class="event-dot"></div></div>
+    <div class="day" onclick="mostraCompleanno(9)">9</div>
+    <div class="day" onclick="mostraCompleanno(10)">10</div>
+    <!-- continua... -->
   </div>
 
   <div class="overlay" id="overlay" onclick="chiudiPopup()"></div>
 
   <div class="popup" id="popup">
     <h3 id="popup-title"></h3>
-    <p id="popup-content"></p>
+    <p id="popup-text"></p>
     <button class="close-btn" onclick="chiudiPopup()">Chiudi</button>
   </div>
 
   <script>
-    function mostraCompleanno(giorno, messaggio) {
-      document.getElementById('popup-title').innerText = giorno;
-      document.getElementById('popup-content').innerText = messaggio;
-      document.getElementById('popup').style.display = 'block';
-      document.getElementById('overlay').style.display = 'block';
+    const compleanni = {
+      8: "🎂 Compleanno di Luca Rossi",
+      15: "🎉 Compleanno di Giulia Bianchi",
+      23: "🎊 Compleanno di Marco Verdi"
+    };
+
+    function mostraCompleanno(giorno) {
+      const testo = compleanni[giorno] || "Nessun compleanno oggi.";
+      document.getElementById("popup-title").innerText = `8 Maggio`;
+      document.getElementById("popup-title").innerText = `${giorno} Maggio`;
+      document.getElementById("popup-text").innerText = testo;
+      document.getElementById("popup").style.display = "block";
+      document.getElementById("overlay").style.display = "block";
     }
 
     function chiudiPopup() {
-      document.getElementById('popup').style.display = 'none';
-      document.getElementById('overlay').style.display = 'none';
+      document.getElementById("popup").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
     }
   </script>
 
