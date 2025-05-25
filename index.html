@@ -175,7 +175,7 @@
   <div id="mese-titolo"></div>
 
   <div class="buttons">
-    <button onclick="cambiaMese(-1)">⬅️ Mese Precedente</button>
+    <button id="btn-prev" onclick="cambiaMese(-1)">⬅️ Mese Precedente</button>
     <button onclick="cambiaMese(1)">Mese Successivo ➡️</button>
   </div>
 
@@ -245,6 +245,14 @@
 
         div.onclick = () => mostraCompleanno(dataStr);
         container.appendChild(div);
+      }
+
+      // Mostra o nasconde il bottone "Mese Precedente"
+      const btnPrev = document.getElementById("btn-prev");
+      if (annoCorrente === 2025 && meseCorrente === 4) {
+        btnPrev.style.display = "none";
+      } else {
+        btnPrev.style.display = "inline-block";
       }
     }
 
