@@ -36,7 +36,6 @@
 
     .day-name, .day {
       text-align: center;
-      padding: 10px 0;
       height: 80px;
       border: 1px solid #ddd;
       border-radius: 4px;
@@ -59,6 +58,11 @@
 
     .day:hover {
       background-color: #e0f0ff;
+    }
+
+    .day.empty {
+      background-color: #f9f9f9;
+      cursor: default;
     }
 
     .event-dot {
@@ -179,6 +183,7 @@
 
       for (let i = 0; i < inizio; i++) {
         const vuoto = document.createElement("div");
+        vuoto.className = "day empty";
         container.appendChild(vuoto);
       }
 
@@ -198,6 +203,16 @@
 
         div.onclick = () => mostraCompleanno(dataStr);
         container.appendChild(div);
+      }
+
+      // Caselle vuote finali per completare la riga (fino a 42 celle totali)
+      const celleTotali = container.children.length;
+      const celleDaAggiungere = 49 - celleTotali; // 7 giorni/settimana * 6 righe + 7 intestazioni
+
+      for (let i = 0; i < celleDaAggiungere; i++) {
+        const vuoto = document.createElement("div");
+        vuoto.className = "day empty";
+        container.appendChild(vuoto);
       }
     }
 
@@ -224,6 +239,7 @@
         annoCorrente++;
       }
 
+      // Limiti da Maggio 2025 a Luglio 2026
       if (annoCorrente < 2025 || (annoCorrente === 2025 && meseCorrente < 4) ||
           annoCorrente > 2026 || (annoCorrente === 2026 && meseCorrente > 6)) {
         alert("Intervallo valido: Maggio 2025 - Luglio 2026");
