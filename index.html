@@ -37,19 +37,23 @@
     .day-name, .day {
       text-align: center;
       padding: 10px 0;
+      height: 80px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .day-name {
       font-weight: bold;
       color: #666;
+      background-color: #fafafa;
     }
 
     .day {
-      border: 1px solid #ddd;
-      border-radius: 4px;
       cursor: pointer;
       background-color: #fff;
-      height: 80px;
       position: relative;
     }
 
@@ -144,7 +148,7 @@
       "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
     ];
 
-    let meseCorrente = 4; // Maggio (0-index)
+    let meseCorrente = 4; // Maggio (0-based)
     let annoCorrente = 2025;
 
     const compleanni = {
@@ -220,7 +224,6 @@
         annoCorrente++;
       }
 
-      // Limiti da Maggio 2025 a Luglio 2026
       if (annoCorrente < 2025 || (annoCorrente === 2025 && meseCorrente < 4) ||
           annoCorrente > 2026 || (annoCorrente === 2026 && meseCorrente > 6)) {
         alert("Intervallo valido: Maggio 2025 - Luglio 2026");
@@ -237,8 +240,8 @@
       creaCalendario(meseCorrente, annoCorrente);
     }
 
-    // Carica il primo mese all'avvio
     creaCalendario(meseCorrente, annoCorrente);
   </script>
+
 </body>
 </html>
