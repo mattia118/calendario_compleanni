@@ -68,6 +68,7 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
+      position: relative;
     }
     .day-name {
       background: #a5d6a7;
@@ -76,7 +77,6 @@
     .day {
       background: #f1f8e9;
       cursor: pointer;
-      position: relative;
       color: #2e4632;
     }
     .day:hover {
@@ -87,27 +87,30 @@
       border: none;
       cursor: default;
     }
-    .popup, .overlay, .form-popup { display: none; }
-    .overlay, .form-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4);
-      z-index: 5;
+    .day.birthday::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
     }
-    .popup, .form-popup {
+    .popup-msg {
       position: fixed;
       top: 30%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #fff;
+      background: white;
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      z-index: 10;
-      width: 300px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.2);
+      z-index: 100;
+      display: none;
       color: #2e4632;
     }
-    .close-btn {
+    .popup-msg button {
       margin-top: 15px;
       background-color: #388e3c;
       color: white;
@@ -115,13 +118,6 @@
       padding: 8px 12px;
       border-radius: 6px;
       cursor: pointer;
-    }
-    .form-popup input, .form-popup select {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
     }
     .scout-section {
       background: #e8f5e9;
@@ -176,39 +172,18 @@
 <div class="buttons">
   <button id="btn-prev" onclick="cambiaMese(-1)">⬅️ Mese Precedente</button>
   <button onclick="cambiaMese(1)">Mese Successivo ➡️</button>
-  <button onclick="apriForm()">➕ Aggiungi il tuo compleanno</button>
 </div>
 
 <div class="calendar" id="calendar"></div>
 
-<!-- IMMAGINE SOTTO IL CALENDARIO -->
+<div class="popup-msg" id="popup-msg">
+  <div id="popup-text"></div>
+  <button onclick="chiudiPopup()">Chiudi</button>
+</div>
+
 <div style="margin: 30px 0;">
   <img src="Screenshot 2025-05-26 alle 17.29.06.png" alt="Foto di gruppo scout"
        style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
-</div>
-
-<!-- FORM -->
-<div class="form-overlay" id="form-overlay" onclick="chiudiForm()"></div>
-<div class="form-popup" id="form-popup">
-  <h3>🎂 Aggiungi il tuo compleanno</h3>
-  <input type="text" id="input-nome" placeholder="Il tuo nome" />
-  <select id="input-mese">
-    <option value="">Mese</option>
-    <option value="01">Gennaio</option>
-    <option value="02">Febbraio</option>
-    <option value="03">Marzo</option>
-    <option value="04">Aprile</option>
-    <option value="05">Maggio</option>
-    <option value="06">Giugno</option>
-    <option value="07">Luglio</option>
-    <option value="08">Agosto</option>
-    <option value="09">Settembre</option>
-    <option value="10">Ottobre</option>
-    <option value="11">Novembre</option>
-    <option value="12">Dicembre</option>
-  </select>
-  <input type="number" id="input-giorno" placeholder="Giorno (1-31)" min="1" max="31" />
-  <button class="close-btn" onclick="salvaCompleanno()">Salva</button>
 </div>
 
 <div class="scout-section">
@@ -244,10 +219,13 @@
 </div>
 
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbz5Dt1-Xm4gdH9YT51I6c7ZTFvwgha8hBM29C30uiLdUa1BuDRixLFkFxBzCSqYOvC07g/exec";
-
 let meseCorrente = 4;
 let annoCorrente = 2025;
+
+// Mappa dei compleanni: 'MM-GG': 'Nome'
+const compleanni = {
+  '05-11': 'Mattia'
+};
 
 function creaCalendario(mese, anno) {
   const container = document.getElementById("calendar");
@@ -276,6 +254,11 @@ function creaCalendario(mese, anno) {
     const giorno = document.createElement("div");
     giorno.className = "day";
     giorno.textContent = g;
+    const key = `${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
+    if (compleanni[key]) {
+      giorno.classList.add("birthday");
+    }
+    giorno.onclick = () => mostraPopup(key);
     container.appendChild(giorno);
   }
 
@@ -283,14 +266,19 @@ function creaCalendario(mese, anno) {
     (anno === 2025 && mese === 4) ? "none" : "inline-block";
 }
 
-function apriForm() {
-  document.getElementById("form-popup").style.display = "block";
-  document.getElementById("form-overlay").style.display = "block";
+function mostraPopup(key) {
+  const popup = document.getElementById("popup-msg");
+  const testo = document.getElementById("popup-text");
+  if (compleanni[key]) {
+    testo.textContent = `🎉 Oggi è il compleanno di ${compleanni[key]}!`;
+  } else {
+    testo.textContent = "📅 Oggi non è il compleanno di nessuno.";
+  }
+  popup.style.display = "block";
 }
 
-function chiudiForm() {
-  document.getElementById("form-popup").style.display = "none";
-  document.getElementById("form-overlay").style.display = "none";
+function chiudiPopup() {
+  document.getElementById("popup-msg").style.display = "none";
 }
 
 function cambiaMese(delta) {
@@ -306,31 +294,6 @@ function cambiaMese(delta) {
     return;
   }
   creaCalendario(meseCorrente, annoCorrente);
-}
-
-async function salvaCompleanno() {
-  const nome = document.getElementById("input-nome").value.trim();
-  const mese = document.getElementById("input-mese").value;
-  const giorno = document.getElementById("input-giorno").value.padStart(2, '0');
-  if (!nome || !mese || !giorno) {
-    alert("Inserisci tutti i campi.");
-    return;
-  }
-
-  const payload = { nome: nome, mese: mese, giorno: giorno };
-
-  try {
-    await fetch(scriptURL, {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: { "Content-Type": "application/json" }
-    });
-    chiudiForm();
-    alert("🎉 Compleanno salvato!");
-  } catch (err) {
-    alert("Errore nel salvataggio.");
-    console.error(err);
-  }
 }
 
 creaCalendario(meseCorrente, annoCorrente);
