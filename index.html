@@ -207,13 +207,11 @@
 
 <div class="calendar" id="calendar"></div>
 
-<div class="overlay" id="overlay" onclick="chiudiPopup()"></div>
-<div class="popup" id="popup">
-  <h3 id="popup-title"></h3>
-  <p id="popup-text"></p>
-  <button class="close-btn" onclick="chiudiPopup()">Chiudi</button>
+<!-- Immagine dopo il calendario -->
+<div style="margin: 30px 0;">
+  <img src="Screenshot 2025-05-26 alle 17.29.06.png" alt="Foto di gruppo scout" style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
 </div>
-
+<!-- FORM PER AGGIUNGERE COMPLEANNO -->
 <div class="form-overlay" id="form-overlay" onclick="chiudiForm()"></div>
 <div class="form-popup" id="form-popup">
   <h3>🎂 Aggiungi il tuo compleanno</h3>
@@ -237,6 +235,7 @@
   <button class="close-btn" onclick="salvaCompleanno()">Salva</button>
 </div>
 
+<!-- PROMESSA E LEGGE SCOUT -->
 <div class="scout-section">
   <h2>⚜️ Promessa e Legge Scout</h2>
   <div class="scout-columns">
@@ -269,6 +268,7 @@
   </div>
 </div>
 
+<!-- JAVASCRIPT -->
 <script>
   const mesi = [
     "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio",
