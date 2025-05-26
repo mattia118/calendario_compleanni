@@ -1,60 +1,66 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>📅 Calendario Compleanni Scout</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendario Scout CB4</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Quicksand:wght@500&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
     }
 
     body {
-      font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(to bottom, #e5f3ff, #d2ecff, #bfe3ff);
       margin: 0;
-      padding: 20px;
-      min-height: 100vh;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: radial-gradient(ellipse at top, #0c1445 0%, #0d1f33 100%);
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-height: 100vh;
     }
 
-    /* Header */
+    /* HEADER */
     .header-top {
       width: 100%;
       max-width: 1000px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-      padding: 0 10px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid #1e2a55;
     }
 
     .logo-gruppo {
+      font-family: 'Orbitron', sans-serif;
       font-size: 1.1em;
-      font-weight: bold;
-      color: #1a3d5e;
+      color: #00d0ff;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      letter-spacing: 1px;
     }
 
     .scout-icon {
-      font-size: 32px;
+      font-size: 30px;
     }
 
     h1 {
-      text-align: center;
-      margin: 10px 0 5px;
+      margin: 10px 0;
       font-size: 2em;
+      color: #00d0ff;
+      text-shadow: 0 0 5px #0073ff;
+      text-align: center;
     }
 
     #mese-titolo {
       text-align: center;
-      font-size: 1.2em;
-      margin: 10px 0 20px 0;
+      font-size: 1.3em;
+      margin-bottom: 15px;
+      color: #aad8ff;
     }
 
     .buttons {
@@ -66,76 +72,79 @@
     }
 
     .buttons button {
-      padding: 10px 16px;
-      background: linear-gradient(to right, #1e88e5, #42a5f5);
-      color: white;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
       border: none;
       border-radius: 10px;
+      color: white;
       font-size: 15px;
       cursor: pointer;
-      transition: 0.2s;
+      box-shadow: 0 0 10px rgba(0, 183, 255, 0.4);
+      transition: all 0.2s ease;
     }
 
     .buttons button:hover {
-      background: linear-gradient(to right, #1565c0, #1e88e5);
+      transform: scale(1.05);
+      background: linear-gradient(to right, #00b2ff, #005ce6);
     }
 
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 8px;
+      gap: 10px;
       max-width: 700px;
       width: 100%;
-      background: rgba(255,255,255,0.95);
-      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 0 20px rgba(0, 183, 255, 0.2);
     }
 
     .day-name, .day {
-      text-align: center;
       height: 80px;
-      border: 1px solid #ccc;
+      border: 1px solid #0062b3;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 500;
-      font-size: 16px;
+      text-align: center;
     }
 
     .day-name {
-      background-color: #d0e9ff;
-      color: #1a3d5e;
+      font-weight: bold;
+      color: #60cdff;
+      background-color: rgba(0, 99, 174, 0.2);
     }
 
     .day {
+      background-color: rgba(255, 255, 255, 0.03);
       cursor: pointer;
-      background-color: #ffffff;
       position: relative;
-      transition: background-color 0.2s;
+      color: #cceeff;
+      transition: background 0.3s ease;
     }
 
     .day:hover {
-      background-color: #def2ff;
+      background-color: rgba(0, 102, 204, 0.4);
     }
 
     .day.empty {
-      background-color: #f2f2f2;
+      background-color: transparent;
+      border: none;
       cursor: default;
     }
 
     .event-dot {
       width: 10px;
       height: 10px;
-      background-color: #ff3b3b;
+      background-color: #ff4d4d;
       border-radius: 50%;
       position: absolute;
       bottom: 8px;
       left: 8px;
     }
 
-    .popup, .overlay {
+    .overlay, .popup {
       display: none;
     }
 
@@ -143,7 +152,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0, 0, 0, 0.5);
       z-index: 5;
     }
 
@@ -152,7 +161,8 @@
       top: 30%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: white;
+      background: #ffffff;
+      color: #000;
       padding: 25px;
       border-radius: 15px;
       box-shadow: 0 0 25px rgba(0,0,0,0.2);
@@ -172,77 +182,61 @@
       cursor: pointer;
     }
 
+    /* Sezione promessa e legge */
     .scout-section {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 15px;
       padding: 30px 20px;
-      margin-top: 40px;
+      margin: 50px auto 30px;
       max-width: 800px;
       width: 100%;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      font-family: 'Georgia', serif;
       text-align: center;
+      font-family: 'Georgia', serif;
+      color: #e0f7ff;
+      box-shadow: 0 0 20px rgba(0, 174, 255, 0.2);
     }
 
     .scout-section h2 {
       font-size: 1.8em;
       margin-bottom: 20px;
-      color: #1a3d5e;
+      color: #00d0ff;
     }
 
     .scout-columns {
       display: flex;
       flex-direction: column;
-      gap: 25px;
+      gap: 30px;
     }
 
     .scout-legge ul {
       text-align: left;
       padding-left: 20px;
-      margin: 0;
       list-style-type: "⚜️ ";
       font-size: 1em;
       line-height: 1.6;
     }
 
     .scout-promessa {
-      background: #d8eaff;
-      border-left: 6px solid #0077cc;
+      background: rgba(0, 102, 255, 0.2);
+      border-left: 6px solid #00bfff;
       padding: 20px;
       border-radius: 10px;
-      font-size: 1em;
-      color: #333;
     }
 
     .scout-promessa h3 {
       margin-top: 0;
       font-size: 1.2em;
-      color: #003366;
+      color: #aaddff;
     }
 
     @media (min-width: 700px) {
       .scout-columns {
         flex-direction: row;
         justify-content: space-between;
-        gap: 40px;
       }
 
       .scout-legge, .scout-promessa {
         width: 48%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .day-name, .day {
-        height: 60px;
-        font-size: 14px;
-      }
-
-      .event-dot {
-        width: 8px;
-        height: 8px;
-        bottom: 6px;
-        left: 6px;
       }
     }
   </style>
@@ -273,32 +267,30 @@
 
   <div class="scout-section">
     <h2>⚜️ Promessa e Legge Scout</h2>
-
     <div class="scout-columns">
       <div class="scout-legge">
         <ul>
-          <li>“Pongono il loro onore nel meritare fiducia”</li>
-          <li>“Sono leali”</li>
-          <li>“Si rendono utili e aiutano gli altri”</li>
-          <li>“Sono amici di tutti e fratelli di ogni altra guida e scout”</li>
-          <li>“Sono cortesi”</li>
-          <li>“Amano e rispettano la natura”</li>
-          <li>“Sanno obbedire”</li>
-          <li>“Sorridono e cantano anche nelle difficoltà”</li>
-          <li>“Sono laboriosi ed economi”</li>
-          <li>“Sono puri di pensieri, parole e azioni”</li>
+          <li>Pongono il loro onore nel meritare fiducia</li>
+          <li>Sono leali</li>
+          <li>Si rendono utili e aiutano gli altri</li>
+          <li>Sono amici di tutti e fratelli di ogni altra guida e scout</li>
+          <li>Sono cortesi</li>
+          <li>Amano e rispettano la natura</li>
+          <li>Sanno obbedire</li>
+          <li>Sorridono e cantano anche nelle difficoltà</li>
+          <li>Sono laboriosi ed economi</li>
+          <li>Sono puri di pensieri, parole e azioni</li>
         </ul>
       </div>
-
       <div class="scout-promessa">
         <h3>PROMESSA SCOUT</h3>
         <p>
-          Con l'aiuto di Dio<br>
-          prometto sul mio onore<br>
-          di fare del mio meglio:<br><br>
-          per compiere il mio dovere verso Dio<br>
-          e verso il mio paese,<br>
-          per aiutare gli altri in ogni circostanza,<br>
+          Con l'aiuto di Dio<br />
+          prometto sul mio onore<br />
+          di fare del mio meglio:<br /><br />
+          per compiere il mio dovere verso Dio<br />
+          e verso il mio paese,<br />
+          per aiutare gli altri in ogni circostanza,<br />
           per osservare la Legge scout.
         </p>
       </div>
@@ -398,11 +390,10 @@
       if (annoCorrente < 2025 || (annoCorrente === 2025 && meseCorrente < 4) ||
           annoCorrente > 2026 || (annoCorrente === 2026 && meseCorrente > 6)) {
         alert("Intervallo valido: Maggio 2025 - Luglio 2026");
-        if (delta > 0) {
-          meseCorrente -= 1;
+        meseCorrente -= delta;
+        if (delta < 0) {
           if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
         } else {
-          meseCorrente += 1;
           if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
         }
         return;
@@ -413,5 +404,6 @@
 
     creaCalendario(meseCorrente, annoCorrente);
   </script>
+
 </body>
 </html>
