@@ -207,9 +207,10 @@
 
 <div class="calendar" id="calendar"></div>
 
-<!-- Immagine dopo il calendario -->
+<!-- FOTO DOPO IL CALENDARIO -->
 <div style="margin: 30px 0;">
-  <img src="Screenshot 2025-05-26 alle 17.29.06.png" alt="Foto di gruppo scout" style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
+  <img src="Screenshot 2025-05-26 alle 17.29.06.png" alt="Foto di gruppo scout"
+       style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
 </div>
 <!-- FORM PER AGGIUNGERE COMPLEANNO -->
 <div class="form-overlay" id="form-overlay" onclick="chiudiForm()"></div>
@@ -304,18 +305,27 @@
 
     const giorniTotali = new Date(anno, mese + 1, 0).getDate();
     for (let g = 1; g <= giorniTotali; g++) {
-      const dataStr = `${anno}-${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
+      const mdKey = `${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
+      let found = false;
+
+      for (const key in compleanni) {
+        if (key.slice(5) === mdKey) {
+          found = true;
+          break;
+        }
+      }
+
       const div = document.createElement("div");
       div.className = "day";
       div.textContent = g;
 
-      if (compleanni[dataStr]) {
+      if (found) {
         const dot = document.createElement("div");
         dot.className = "event-dot";
         div.appendChild(dot);
       }
 
-      div.onclick = () => mostraCompleanno(dataStr);
+      div.onclick = () => mostraCompleanno(mdKey);
       container.appendChild(div);
     }
 
@@ -323,10 +333,19 @@
       annoCorrente === 2025 && meseCorrente === 4 ? "none" : "inline-block";
   }
 
-  function mostraCompleanno(data) {
-    const testo = compleanni[data] || "Nessun compleanno oggi.";
-    document.getElementById("popup-title").innerText = data;
-    document.getElementById("popup-text").innerText = testo;
+  function mostraCompleanno(mdKey) {
+    const risultati = [];
+
+    for (const key in compleanni) {
+      if (key.slice(5) === mdKey) {
+        risultati.push(compleanni[key]);
+      }
+    }
+
+    document.getElementById("popup-title").innerText = `🎂 ${mdKey}`;
+    document.getElementById("popup-text").innerText = risultati.length > 0
+      ? risultati.join("\n")
+      : "Nessun compleanno oggi.";
     document.getElementById("popup").style.display = "block";
     document.getElementById("overlay").style.display = "block";
   }
@@ -373,7 +392,7 @@
       return;
     }
 
-    const dataFinale = `${annoCorrente}-${mese}-${giorno}`;
+    const dataFinale = `2000-${mese}-${giorno}`; // l'anno è fittizio, solo per salvataggio
     compleanni[dataFinale] = `🎉 ${nome}`;
     localStorage.setItem("compleanni", JSON.stringify(compleanni));
 
