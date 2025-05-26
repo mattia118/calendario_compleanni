@@ -6,10 +6,7 @@
   <title>Calendario Scout CB4</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       font-family: 'Quicksand', sans-serif;
       background: linear-gradient(to bottom, #f1f8e9, #c8e6c9);
@@ -21,7 +18,6 @@
       align-items: center;
       color: #2e4632;
     }
-
     .header-top {
       width: 100%;
       max-width: 1000px;
@@ -30,7 +26,6 @@
       align-items: center;
       padding: 20px 0;
     }
-
     .logo-gruppo {
       font-size: 1.2em;
       font-weight: bold;
@@ -39,22 +34,16 @@
       align-items: center;
       gap: 10px;
     }
-
-    .scout-icon {
-      font-size: 28px;
-    }
-
+    .scout-icon { font-size: 28px; }
     h1 {
       font-size: 2em;
       margin-bottom: 5px;
       color: #1b5e20;
     }
-
     #mese-titolo {
       font-size: 1.3em;
       margin-bottom: 15px;
     }
-
     .buttons {
       display: flex;
       gap: 10px;
@@ -62,7 +51,6 @@
       justify-content: center;
       margin-bottom: 20px;
     }
-
     .buttons button {
       background-color: #388e3c;
       color: white;
@@ -73,11 +61,9 @@
       cursor: pointer;
       transition: background 0.3s;
     }
-
     .buttons button:hover {
       background-color: #2e7d32;
     }
-
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -89,7 +75,6 @@
       max-width: 700px;
       width: 100%;
     }
-
     .day-name, .day {
       text-align: center;
       height: 80px;
@@ -100,29 +85,24 @@
       justify-content: center;
       font-weight: bold;
     }
-
     .day-name {
       background: #a5d6a7;
       color: #1b5e20;
     }
-
     .day {
       background: #f1f8e9;
       cursor: pointer;
       position: relative;
       color: #2e4632;
     }
-
     .day:hover {
       background: #dcedc8;
     }
-
     .day.empty {
       background: transparent;
       border: none;
       cursor: default;
     }
-
     .event-dot {
       width: 8px;
       height: 8px;
@@ -132,11 +112,7 @@
       bottom: 5px;
       left: 5px;
     }
-
-    .popup, .overlay, .form-popup {
-      display: none;
-    }
-
+    .popup, .overlay, .form-popup { display: none; }
     .overlay, .form-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -144,7 +120,6 @@
       background: rgba(0,0,0,0.4);
       z-index: 5;
     }
-
     .popup, .form-popup {
       position: fixed;
       top: 30%;
@@ -158,7 +133,6 @@
       width: 300px;
       color: #2e4632;
     }
-
     .close-btn {
       margin-top: 15px;
       background-color: #388e3c;
@@ -168,15 +142,13 @@
       border-radius: 6px;
       cursor: pointer;
     }
-
-    .form-popup input {
+    .form-popup input, .form-popup select {
       width: 100%;
       padding: 8px;
       margin-bottom: 10px;
       border: 1px solid #ccc;
       border-radius: 6px;
     }
-
     .scout-section {
       background: #e8f5e9;
       border-radius: 12px;
@@ -186,37 +158,31 @@
       width: 100%;
       font-family: 'Georgia', serif;
     }
-
     .scout-section h2 {
       text-align: center;
       margin-bottom: 20px;
       color: #1b5e20;
     }
-
     .scout-columns {
       display: flex;
       flex-direction: column;
       gap: 25px;
     }
-
     .scout-legge ul {
       list-style-type: "⚜️ ";
       padding-left: 20px;
     }
-
     .scout-promessa {
       background: #c8e6c9;
       padding: 15px;
       border-left: 5px solid #2e7d32;
       border-radius: 8px;
     }
-
     @media (min-width: 700px) {
       .scout-columns {
         flex-direction: row;
         justify-content: space-between;
       }
-
       .scout-legge, .scout-promessa {
         width: 48%;
       }
@@ -225,193 +191,198 @@
 </head>
 <body>
 
-  <header class="header-top">
-    <div class="logo-gruppo">⛺ GRUPPO SCOUT CB4</div>
-    <div class="scout-icon">⚜️</div>
-  </header>
+<header class="header-top">
+  <div class="logo-gruppo">⛺ GRUPPO SCOUT CB4</div>
+  <div class="scout-icon">⚜️</div>
+</header>
 
-  <h1>Calendario Compleanni Scout</h1>
-  <div id="mese-titolo"></div>
+<h1>Calendario Compleanni Scout</h1>
+<div id="mese-titolo"></div>
 
-  <div class="buttons">
-    <button id="btn-prev" onclick="cambiaMese(-1)">⬅️ Mese Precedente</button>
-    <button onclick="cambiaMese(1)">Mese Successivo ➡️</button>
-    <button onclick="apriForm()">➕ Aggiungi il tuo compleanno</button>
-  </div>
+<div class="buttons">
+  <button id="btn-prev" onclick="cambiaMese(-1)">⬅️ Mese Precedente</button>
+  <button onclick="cambiaMese(1)">Mese Successivo ➡️</button>
+  <button onclick="apriForm()">➕ Aggiungi il tuo compleanno</button>
+</div>
 
-  <div class="calendar" id="calendar"></div>
+<div class="calendar" id="calendar"></div>
 
-  <!-- POPUP -->
-  <div class="overlay" id="overlay" onclick="chiudiPopup()"></div>
-  <div class="popup" id="popup">
-    <h3 id="popup-title"></h3>
-    <p id="popup-text"></p>
-    <button class="close-btn" onclick="chiudiPopup()">Chiudi</button>
-  </div>
+<div class="overlay" id="overlay" onclick="chiudiPopup()"></div>
+<div class="popup" id="popup">
+  <h3 id="popup-title"></h3>
+  <p id="popup-text"></p>
+  <button class="close-btn" onclick="chiudiPopup()">Chiudi</button>
+</div>
 
-  <!-- FORM PER AGGIUNGERE COMPLEANNO -->
-  <div class="form-overlay" id="form-overlay" onclick="chiudiForm()"></div>
-  <div class="form-popup" id="form-popup">
-    <h3>🎂 Aggiungi il tuo compleanno</h3>
-    <input type="text" id="input-nome" placeholder="Il tuo nome" />
-    <input type="date" id="input-data" />
-    <button class="close-btn" onclick="salvaCompleanno()">Salva</button>
-  </div>
+<div class="form-overlay" id="form-overlay" onclick="chiudiForm()"></div>
+<div class="form-popup" id="form-popup">
+  <h3>🎂 Aggiungi il tuo compleanno</h3>
+  <input type="text" id="input-nome" placeholder="Il tuo nome" />
+  <select id="input-mese">
+    <option value="">Mese</option>
+    <option value="01">Gennaio</option>
+    <option value="02">Febbraio</option>
+    <option value="03">Marzo</option>
+    <option value="04">Aprile</option>
+    <option value="05">Maggio</option>
+    <option value="06">Giugno</option>
+    <option value="07">Luglio</option>
+    <option value="08">Agosto</option>
+    <option value="09">Settembre</option>
+    <option value="10">Ottobre</option>
+    <option value="11">Novembre</option>
+    <option value="12">Dicembre</option>
+  </select>
+  <input type="number" id="input-giorno" placeholder="Giorno (1-31)" min="1" max="31" />
+  <button class="close-btn" onclick="salvaCompleanno()">Salva</button>
+</div>
 
-  <!-- PROMESSA E LEGGE -->
-  <div class="scout-section">
-    <h2>⚜️ Promessa e Legge Scout</h2>
-    <div class="scout-columns">
-      <div class="scout-legge">
-        <ul>
-          <li>Pongono il loro onore nel meritare fiducia</li>
-          <li>Sono leali</li>
-          <li>Si rendono utili e aiutano gli altri</li>
-          <li>Sono amici di tutti e fratelli di ogni altra guida e scout</li>
-          <li>Sono cortesi</li>
-          <li>Amano e rispettano la natura</li>
-          <li>Sanno obbedire</li>
-          <li>Sorridono e cantano anche nelle difficoltà</li>
-          <li>Sono laboriosi ed economi</li>
-          <li>Sono puri di pensieri, parole e azioni</li>
-        </ul>
-      </div>
-      <div class="scout-promessa">
-        <h3>PROMESSA SCOUT</h3>
-        <p>
-          Con l'aiuto di Dio<br />
-          prometto sul mio onore<br />
-          di fare del mio meglio:<br /><br />
-          per compiere il mio dovere verso Dio<br />
-          e verso il mio paese,<br />
-          per aiutare gli altri in ogni circostanza,<br />
-          per osservare la Legge scout.
-        </p>
-      </div>
+<div class="scout-section">
+  <h2>⚜️ Promessa e Legge Scout</h2>
+  <div class="scout-columns">
+    <div class="scout-legge">
+      <ul>
+        <li>Pongono il loro onore nel meritare fiducia</li>
+        <li>Sono leali</li>
+        <li>Si rendono utili e aiutano gli altri</li>
+        <li>Sono amici di tutti e fratelli di ogni altra guida e scout</li>
+        <li>Sono cortesi</li>
+        <li>Amano e rispettano la natura</li>
+        <li>Sanno obbedire</li>
+        <li>Sorridono e cantano anche nelle difficoltà</li>
+        <li>Sono laboriosi ed economi</li>
+        <li>Sono puri di pensieri, parole e azioni</li>
+      </ul>
+    </div>
+    <div class="scout-promessa">
+      <h3>PROMESSA SCOUT</h3>
+      <p>
+        Con l'aiuto di Dio<br />
+        prometto sul mio onore<br />
+        di fare del mio meglio:<br /><br />
+        per compiere il mio dovere verso Dio<br />
+        e verso il mio paese,<br />
+        per aiutare gli altri in ogni circostanza,<br />
+        per osservare la Legge scout.
+      </p>
     </div>
   </div>
+</div>
 
-  <script>
-    const mesi = [
-      "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio",
-      "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
-    ];
+<script>
+  const mesi = [
+    "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio",
+    "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
+  ];
 
-    let meseCorrente = 4;
-    let annoCorrente = 2025;
+  let meseCorrente = 4;
+  let annoCorrente = 2025;
 
-    let compleanni = JSON.parse(localStorage.getItem("compleanni")) || {
-      "2025-05-08": "🎂 Luca Rossi"
-    };
+  let compleanni = JSON.parse(localStorage.getItem("compleanni")) || {};
 
-    function creaCalendario(mese, anno) {
-      const container = document.getElementById("calendar");
-      container.innerHTML = "";
+  function creaCalendario(mese, anno) {
+    const container = document.getElementById("calendar");
+    container.innerHTML = "";
+    document.getElementById("mese-titolo").textContent = `${mesi[mese]} ${anno}`;
 
-      document.getElementById("mese-titolo").textContent = `${mesi[mese]} ${anno}`;
+    const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
+    giorniSettimana.forEach(g => {
+      const d = document.createElement("div");
+      d.className = "day-name";
+      d.textContent = g;
+      container.appendChild(d);
+    });
 
-      const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
-      giorniSettimana.forEach(g => {
-        const d = document.createElement("div");
-        d.className = "day-name";
-        d.textContent = g;
-        container.appendChild(d);
-      });
+    const primoGiorno = new Date(anno, mese, 1);
+    let inizio = (primoGiorno.getDay() + 6) % 7;
 
-      const primoGiorno = new Date(anno, mese, 1);
-      let inizio = (primoGiorno.getDay() + 6) % 7;
+    for (let i = 0; i < inizio; i++) {
+      const vuoto = document.createElement("div");
+      vuoto.className = "day empty";
+      container.appendChild(vuoto);
+    }
 
-      for (let i = 0; i < inizio; i++) {
-        const vuoto = document.createElement("div");
-        vuoto.className = "day empty";
-        container.appendChild(vuoto);
+    const giorniTotali = new Date(anno, mese + 1, 0).getDate();
+    for (let g = 1; g <= giorniTotali; g++) {
+      const dataStr = `${anno}-${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
+      const div = document.createElement("div");
+      div.className = "day";
+      div.textContent = g;
+
+      if (compleanni[dataStr]) {
+        const dot = document.createElement("div");
+        dot.className = "event-dot";
+        div.appendChild(dot);
       }
 
-      const giorniTotali = new Date(anno, mese + 1, 0).getDate();
-
-      for (let g = 1; g <= giorniTotali; g++) {
-        const dataStr = `${anno}-${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
-        const div = document.createElement("div");
-        div.className = "day";
-        div.textContent = g;
-
-        if (compleanni[dataStr]) {
-          const dot = document.createElement("div");
-          dot.className = "event-dot";
-          div.appendChild(dot);
-        }
-
-        div.onclick = () => mostraCompleanno(dataStr);
-        container.appendChild(div);
-      }
-
-      document.getElementById("btn-prev").style.display =
-        annoCorrente === 2025 && meseCorrente === 4 ? "none" : "inline-block";
+      div.onclick = () => mostraCompleanno(dataStr);
+      container.appendChild(div);
     }
 
-    function mostraCompleanno(data) {
-      const testo = compleanni[data] || "Nessun compleanno oggi.";
-      document.getElementById("popup-title").innerText = data;
-      document.getElementById("popup-text").innerText = testo;
-      document.getElementById("popup").style.display = "block";
-      document.getElementById("overlay").style.display = "block";
-    }
+    document.getElementById("btn-prev").style.display =
+      annoCorrente === 2025 && meseCorrente === 4 ? "none" : "inline-block";
+  }
 
-    function chiudiPopup() {
-      document.getElementById("popup").style.display = "none";
-      document.getElementById("overlay").style.display = "none";
-    }
+  function mostraCompleanno(data) {
+    const testo = compleanni[data] || "Nessun compleanno oggi.";
+    document.getElementById("popup-title").innerText = data;
+    document.getElementById("popup-text").innerText = testo;
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+  }
 
-    function cambiaMese(delta) {
-      meseCorrente += delta;
-      if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
-      else if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
+  function chiudiPopup() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+  }
 
-      if (
-        annoCorrente < 2025 || (annoCorrente === 2025 && meseCorrente < 4) ||
-        annoCorrente > 2026 || (annoCorrente === 2026 && meseCorrente > 6)
-      ) {
-        alert("Intervallo valido: Maggio 2025 - Luglio 2026");
-        meseCorrente -= delta;
-        return;
-      }
+  function cambiaMese(delta) {
+    meseCorrente += delta;
+    if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
+    else if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
 
-      creaCalendario(meseCorrente, annoCorrente);
-    }
-
-    function apriForm() {
-      document.getElementById("form-popup").style.display = "block";
-      document.getElementById("form-overlay").style.display = "block";
-    }
-
-    function chiudiForm() {
-      document.getElementById("form-popup").style.display = "none";
-      document.getElementById("form-overlay").style.display = "none";
-    }
-
-    function salvaCompleanno() {
-      const nome = document.getElementById("input-nome").value.trim();
-      const dataInput = document.getElementById("input-data").value;
-
-      if (!nome || !dataInput) {
-        alert("Inserisci nome e data.");
-        return;
-      }
-
-      // Estrai mese e giorno
-      const [_, mese, giorno] = dataInput.split("-");
-      const annoVisuale = annoCorrente;
-      const dataFinale = `${annoVisuale}-${mese}-${giorno}`;
-
-      compleanni[dataFinale] = `🎉 ${nome}`;
-      localStorage.setItem("compleanni", JSON.stringify(compleanni));
-
-      chiudiForm();
-      creaCalendario(meseCorrente, annoCorrente);
+    if (
+      annoCorrente < 2025 || (annoCorrente === 2025 && meseCorrente < 4) ||
+      annoCorrente > 2026 || (annoCorrente === 2026 && meseCorrente > 6)
+    ) {
+      alert("Intervallo valido: Maggio 2025 - Luglio 2026");
+      meseCorrente -= delta;
+      return;
     }
 
     creaCalendario(meseCorrente, annoCorrente);
-  </script>
+  }
+
+  function apriForm() {
+    document.getElementById("form-popup").style.display = "block";
+    document.getElementById("form-overlay").style.display = "block";
+  }
+
+  function chiudiForm() {
+    document.getElementById("form-popup").style.display = "none";
+    document.getElementById("form-overlay").style.display = "none";
+  }
+
+  function salvaCompleanno() {
+    const nome = document.getElementById("input-nome").value.trim();
+    const mese = document.getElementById("input-mese").value;
+    const giorno = document.getElementById("input-giorno").value.padStart(2, '0');
+
+    if (!nome || !mese || !giorno) {
+      alert("Inserisci tutti i campi.");
+      return;
+    }
+
+    const dataFinale = `${annoCorrente}-${mese}-${giorno}`;
+    compleanni[dataFinale] = `🎉 ${nome}`;
+    localStorage.setItem("compleanni", JSON.stringify(compleanni));
+
+    chiudiForm();
+    creaCalendario(meseCorrente, annoCorrente);
+  }
+
+  creaCalendario(meseCorrente, annoCorrente);
+</script>
 
 </body>
 </html>
