@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calendario Scout CB4</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Georgia&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -12,7 +12,7 @@
 
     body {
       font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(to bottom, #e8f5e9, #a5d6a7);
+      background: linear-gradient(to bottom, #f1f8e9, #c8e6c9);
       margin: 0;
       padding: 0 20px;
       min-height: 100vh;
@@ -211,10 +211,6 @@
       border-radius: 8px;
     }
 
-    .add-button {
-      margin-bottom: 15px;
-    }
-
     @media (min-width: 700px) {
       .scout-columns {
         flex-direction: row;
@@ -262,7 +258,7 @@
     <button class="close-btn" onclick="salvaCompleanno()">Salva</button>
   </div>
 
-  <!-- LEGGE E PROMESSA -->
+  <!-- PROMESSA E LEGGE -->
   <div class="scout-section">
     <h2>⚜️ Promessa e Legge Scout</h2>
     <div class="scout-columns">
@@ -305,8 +301,7 @@
     let annoCorrente = 2025;
 
     let compleanni = JSON.parse(localStorage.getItem("compleanni")) || {
-      "2025-05-08": "🎂 Luca Rossi",
-      "2025-06-15": "🎉 Giulia Bianchi"
+      "2025-05-08": "🎂 Luca Rossi"
     };
 
     function creaCalendario(mese, anno) {
@@ -335,7 +330,7 @@
       const giorniTotali = new Date(anno, mese + 1, 0).getDate();
 
       for (let g = 1; g <= giorniTotali; g++) {
-        const dataStr = `${anno}-${String(mese+1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
+        const dataStr = `${anno}-${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
         const div = document.createElement("div");
         div.className = "day";
         div.textContent = g;
@@ -396,18 +391,27 @@
 
     function salvaCompleanno() {
       const nome = document.getElementById("input-nome").value.trim();
-      const data = document.getElementById("input-data").value;
-      if (!nome || !data) {
+      const dataInput = document.getElementById("input-data").value;
+
+      if (!nome || !dataInput) {
         alert("Inserisci nome e data.");
         return;
       }
-      compleanni[data] = `🎉 ${nome}`;
+
+      // Estrai mese e giorno
+      const [_, mese, giorno] = dataInput.split("-");
+      const annoVisuale = annoCorrente;
+      const dataFinale = `${annoVisuale}-${mese}-${giorno}`;
+
+      compleanni[dataFinale] = `🎉 ${nome}`;
       localStorage.setItem("compleanni", JSON.stringify(compleanni));
+
       chiudiForm();
       creaCalendario(meseCorrente, annoCorrente);
     }
 
     creaCalendario(meseCorrente, annoCorrente);
   </script>
+
 </body>
 </html>
