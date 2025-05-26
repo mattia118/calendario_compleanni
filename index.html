@@ -181,6 +181,12 @@
 
 <div class="calendar" id="calendar"></div>
 
+<!-- IMMAGINE SOTTO IL CALENDARIO -->
+<div style="margin: 30px 0;">
+  <img src="Screenshot 2025-05-26 alle 17.29.06.png" alt="Foto di gruppo scout"
+       style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
+</div>
+
 <!-- FORM -->
 <div class="form-overlay" id="form-overlay" onclick="chiudiForm()"></div>
 <div class="form-popup" id="form-popup">
@@ -242,12 +248,6 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbz5Dt1-Xm4gdH9YT51I6c
 
 let meseCorrente = 4;
 let annoCorrente = 2025;
-let compleanni = {};
-
-async function caricaCompleanni() {
-  compleanni = {}; // non carica nulla
-  creaCalendario(meseCorrente, annoCorrente);
-}
 
 function creaCalendario(mese, anno) {
   const container = document.getElementById("calendar");
@@ -333,7 +333,7 @@ async function salvaCompleanno() {
   }
 }
 
-caricaCompleanni();
+creaCalendario(meseCorrente, annoCorrente);
 </script>
 
 </body>
