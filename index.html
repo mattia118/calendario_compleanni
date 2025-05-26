@@ -190,12 +190,6 @@
 
 <div class="calendar" id="calendar"></div>
 
-<!-- IMMAGINE DOPO IL CALENDARIO -->
-<div style="margin: 30px 0;">
-  <img src="Screenshot 2025-05-26 alle 17.29.06.png" alt="Foto di gruppo scout"
-       style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
-</div>
-
 <!-- FORM -->
 <div class="form-overlay" id="form-overlay" onclick="chiudiForm()"></div>
 <div class="form-popup" id="form-popup">
@@ -228,7 +222,7 @@
   <button class="close-btn" onclick="chiudiPopup()">Chiudi</button>
 </div>
 
-<!-- SEZIONE PROMESSA E LEGGE -->
+<!-- SEZIONE PROMESSA E LEGGE SCOUT -->
 <div class="scout-section">
   <h2>⚜️ Promessa e Legge Scout</h2>
   <div class="scout-columns">
@@ -260,109 +254,141 @@
     </div>
   </div>
 </div>
-
-<!-- JAVASCRIPT -->
 <script>
-  let meseCorrente = 4;
-  let annoCorrente = 2025;
-  let compleanni = JSON.parse(localStorage.getItem("compleanni")) || {};
+const scriptURL = "https://script.google.com/macros/s/AKfycbz5Dt1-Xm4gdH9YT51I6c7ZTFvwgha8hBM29C30uiLdUa1BuDRixLFkFxBzCSqYOvC07g/exec";
 
-  function creaCalendario(mese, anno) {
-    const container = document.getElementById("calendar");
-    container.innerHTML = "";
-    const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
-    giorniSettimana.forEach(g => {
-      const d = document.createElement("div");
-      d.className = "day-name";
-      d.textContent = g;
-      container.appendChild(d);
+let meseCorrente = 4;
+let annoCorrente = 2025;
+let compleanni = {};
+
+async function caricaCompleanni() {
+  try {
+    const res = await fetch(scriptURL);
+    const data = await res.json();
+    compleanni = {};
+    data.forEach(entry => {
+      const key = `${entry.mese}-${entry.giorno}`;
+      if (!compleanni[key]) compleanni[key] = [];
+      compleanni[key].push(entry.nome);
     });
-
-    const titolo = document.getElementById("mese-titolo");
-    titolo.textContent = `${["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"][mese]} ${anno}`;
-
-    const primo = new Date(anno, mese, 1);
-    let start = (primo.getDay() + 6) % 7;
-    for (let i = 0; i < start; i++) {
-      const vuoto = document.createElement("div");
-      vuoto.className = "day empty";
-      container.appendChild(vuoto);
-    }
-
-    const giorniTotali = new Date(anno, mese + 1, 0).getDate();
-    for (let g = 1; g <= giorniTotali; g++) {
-      const md = `${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
-      const giorno = document.createElement("div");
-      giorno.className = "day";
-      giorno.textContent = g;
-      if (compleanni[md]) {
-        const dot = document.createElement("div");
-        dot.className = "event-dot";
-        giorno.appendChild(dot);
-      }
-      giorno.onclick = () => mostraCompleanno(md);
-      container.appendChild(giorno);
-    }
-
-    document.getElementById("btn-prev").style.display =
-      (anno === 2025 && mese === 4) ? "none" : "inline-block";
-  }
-
-  function mostraCompleanno(md) {
-    const testo = compleanni[md] || "Nessun compleanno oggi.";
-    document.getElementById("popup-title").innerText = `🎉 ${md}`;
-    document.getElementById("popup-text").innerText = testo;
-    document.getElementById("popup").style.display = "block";
-    document.getElementById("overlay").style.display = "block";
-  }
-
-  function chiudiPopup() {
-    document.getElementById("popup").style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-  }
-
-  function apriForm() {
-    document.getElementById("form-popup").style.display = "block";
-    document.getElementById("form-overlay").style.display = "block";
-  }
-
-  function chiudiForm() {
-    document.getElementById("form-popup").style.display = "none";
-    document.getElementById("form-overlay").style.display = "none";
-  }
-
-  function salvaCompleanno() {
-    const nome = document.getElementById("input-nome").value.trim();
-    const mese = document.getElementById("input-mese").value;
-    const giorno = document.getElementById("input-giorno").value.padStart(2, '0');
-    if (!nome || !mese || !giorno) {
-      alert("Inserisci tutti i campi.");
-      return;
-    }
-    const key = `${mese}-${giorno}`;
-    compleanni[key] = `🎂 ${nome}`;
-    localStorage.setItem("compleanni", JSON.stringify(compleanni));
-    chiudiForm();
     creaCalendario(meseCorrente, annoCorrente);
+  } catch (err) {
+    console.error("Errore nel caricamento:", err);
+  }
+}
+
+function creaCalendario(mese, anno) {
+  const container = document.getElementById("calendar");
+  container.innerHTML = "";
+  const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
+  giorniSettimana.forEach(g => {
+    const d = document.createElement("div");
+    d.className = "day-name";
+    d.textContent = g;
+    container.appendChild(d);
+  });
+
+  const titolo = document.getElementById("mese-titolo");
+  titolo.textContent = `${["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"][mese]} ${anno}`;
+
+  const primo = new Date(anno, mese, 1);
+  let start = (primo.getDay() + 6) % 7;
+  for (let i = 0; i < start; i++) {
+    const vuoto = document.createElement("div");
+    vuoto.className = "day empty";
+    container.appendChild(vuoto);
   }
 
-  function cambiaMese(delta) {
-    meseCorrente += delta;
+  const giorniTotali = new Date(anno, mese + 1, 0).getDate();
+  for (let g = 1; g <= giorniTotali; g++) {
+    const md = `${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
+    const giorno = document.createElement("div");
+    giorno.className = "day";
+    giorno.textContent = g;
+    if (compleanni[md]) {
+      const dot = document.createElement("div");
+      dot.className = "event-dot";
+      giorno.appendChild(dot);
+    }
+    giorno.onclick = () => mostraCompleanno(md);
+    container.appendChild(giorno);
+  }
+
+  document.getElementById("btn-prev").style.display =
+    (anno === 2025 && mese === 4) ? "none" : "inline-block";
+}
+
+function mostraCompleanno(md) {
+  const elenco = compleanni[md] || [];
+  document.getElementById("popup-title").innerText = `🎉 ${md}`;
+  document.getElementById("popup-text").innerText =
+    elenco.length > 0 ? elenco.map(n => `🎂 ${n}`).join("\n") : "Nessun compleanno oggi.";
+  document.getElementById("popup").style.display = "block";
+  document.getElementById("overlay").style.display = "block";
+}
+
+function chiudiPopup() {
+  document.getElementById("popup").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+}
+
+function apriForm() {
+  document.getElementById("form-popup").style.display = "block";
+  document.getElementById("form-overlay").style.display = "block";
+}
+
+function chiudiForm() {
+  document.getElementById("form-popup").style.display = "none";
+  document.getElementById("form-overlay").style.display = "none";
+}
+
+function cambiaMese(delta) {
+  meseCorrente += delta;
+  if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
+  if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
+  if ((annoCorrente < 2025 || (annoCorrente === 2025 && meseCorrente < 4)) ||
+      (annoCorrente > 2026 || (annoCorrente === 2026 && meseCorrente > 6))) {
+    alert("Intervallo valido: Maggio 2025 - Luglio 2026");
+    meseCorrente -= delta;
     if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
     if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
-    if ((annoCorrente < 2025 || (annoCorrente === 2025 && meseCorrente < 4)) ||
-        (annoCorrente > 2026 || (annoCorrente === 2026 && meseCorrente > 6))) {
-      alert("Intervallo valido: Maggio 2025 - Luglio 2026");
-      meseCorrente -= delta;
-      if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
-      if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
-      return;
-    }
-    creaCalendario(meseCorrente, annoCorrente);
+    return;
+  }
+  creaCalendario(meseCorrente, annoCorrente);
+}
+
+async function salvaCompleanno() {
+  const nome = document.getElementById("input-nome").value.trim();
+  const mese = document.getElementById("input-mese").value;
+  const giorno = document.getElementById("input-giorno").value.padStart(2, '0');
+  if (!nome || !mese || !giorno) {
+    alert("Inserisci tutti i campi.");
+    return;
   }
 
-  creaCalendario(meseCorrente, annoCorrente);
-</script>
+  const payload = {
+    nome: nome,
+    mese: mese,
+    giorno: giorno
+  };
 
+  try {
+    await fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    chiudiForm();
+    await caricaCompleanni(); // ricarica tutto
+  } catch (err) {
+    alert("Errore nel salvataggio.");
+    console.error(err);
+  }
+}
+
+caricaCompleanni();
+</script>
 </body>
 </html>
