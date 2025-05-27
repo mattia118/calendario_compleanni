@@ -141,6 +141,45 @@
       border-radius: 6px;
       cursor: pointer;
     }
+
+    .scout-section {
+      background: #e8f5e9;
+      border-radius: 12px;
+      padding: 25px 20px;
+      margin: 40px 0;
+      max-width: 700px;
+      width: 100%;
+      font-family: 'Georgia', serif;
+    }
+    .scout-section h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1b5e20;
+    }
+    .scout-columns {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+    .scout-legge ul {
+      list-style-type: "⚜️ ";
+      padding-left: 20px;
+    }
+    .scout-promessa {
+      background: #c8e6c9;
+      padding: 15px;
+      border-left: 5px solid #2e7d32;
+      border-radius: 8px;
+    }
+    @media (min-width: 700px) {
+      .scout-columns {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .scout-legge, .scout-promessa {
+        width: 48%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -153,9 +192,9 @@
 <h1>Calendario Compleanni Scout</h1>
 
 <div class="mese-container">
-  <img src="ChatGPT Image 26 mag 2025, 21_03_29.png" alt="Logo sinistra">
+  <img src="ChatGPT Image 26 mag 2025, 21_03_29.png" alt="Icona sinistra" />
   <div id="mese-titolo"></div>
-  <img src="ChatGPT Image 26 mag 2025, 21_06_01.png" alt="Logo destra">
+  <img src="ChatGPT Image 26 mag 2025, 21_06_01.png" alt="Icona destra" />
 </div>
 
 <div class="buttons">
@@ -165,6 +204,46 @@
 
 <div class="calendar" id="calendar"></div>
 
+<!-- IMMAGINE DI GRUPPO -->
+<div style="margin: 30px 0;">
+  <img src="Screenshot 2025-05-26 alle 17.29.06.png" alt="Foto di gruppo scout"
+       style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
+</div>
+
+<!-- SEZIONE PROMESSA E LEGGE SCOUT -->
+<div class="scout-section">
+  <h2>⚜️ Promessa e Legge Scout</h2>
+  <div class="scout-columns">
+    <div class="scout-legge">
+      <ul>
+        <li>Pongono il loro onore nel meritare fiducia</li>
+        <li>Sono leali</li>
+        <li>Si rendono utili e aiutano gli altri</li>
+        <li>Sono amici di tutti e fratelli di ogni altra guida e scout</li>
+        <li>Sono cortesi</li>
+        <li>Amano e rispettano la natura</li>
+        <li>Sanno obbedire</li>
+        <li>Sorridono e cantano anche nelle difficoltà</li>
+        <li>Sono laboriosi ed economi</li>
+        <li>Sono puri di pensieri, parole e azioni</li>
+      </ul>
+    </div>
+    <div class="scout-promessa">
+      <h3>✝️ PROMESSA SCOUT</h3>
+      <p>
+        Con l'aiuto di Dio<br />
+        prometto sul mio onore<br />
+        di fare del mio meglio:<br /><br />
+        per compiere il mio dovere verso Dio<br />
+        e verso il mio paese,<br />
+        per aiutare gli altri in ogni circostanza,<br />
+        per osservare la Legge scout.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP MESSAGGIO -->
 <div class="popup-msg" id="popup-msg">
   <div id="popup-text"></div>
   <button onclick="chiudiPopup()">Chiudi</button>
