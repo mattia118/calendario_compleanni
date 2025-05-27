@@ -11,13 +11,11 @@
       font-family: 'Quicksand', sans-serif;
       background: linear-gradient(to bottom, #f1f8e9, #c8e6c9);
       margin: 0;
-      padding: 0 20px 40px; /* padding bottom per footer */
+      padding: 0 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       color: #2e4632;
-      min-height: 100vh;
-      position: relative;
     }
     .header-top {
       width: 100%;
@@ -152,7 +150,6 @@
       max-width: 700px;
       width: 100%;
       font-family: 'Georgia', serif;
-      position: relative;
     }
     .scout-section h2 {
       text-align: center;
@@ -182,36 +179,6 @@
       .scout-legge, .scout-promessa {
         width: 48%;
       }
-    }
-
-    /* Nuovi stili per la linea e recapiti */
-    .separator-line {
-      width: 100%;
-      max-width: 700px;
-      border-top: 2px solid #2e7d32;
-      margin: 30px 0 15px 0;
-    }
-    .recapiti {
-      max-width: 700px;
-      width: 100%;
-      text-align: center;
-      font-weight: 600;
-      color: #1b5e20;
-      margin-bottom: 60px;
-      font-size: 1em;
-      font-family: 'Quicksand', sans-serif;
-    }
-
-    /* Footer in basso a destra */
-    .footer-right {
-      position: fixed;
-      bottom: 10px;
-      right: 20px;
-      font-family: 'Quicksand', sans-serif;
-      font-size: 0.9em;
-      color: #2e7d32;
-      user-select: none;
-      opacity: 0.7;
     }
   </style>
 </head>
@@ -276,24 +243,10 @@
   </div>
 </div>
 
-<!-- LINEA SEPARATRICE -->
-<div class="separator-line"></div>
-
-<!-- RECAPITI TELEFONICI -->
-<div class="recapiti">
-  📞 Recapiti telefonici: <br />
-  Mario Rossi - 333 1234567 | Anna Bianchi - 345 7654321 | Luca Verdi - 328 9876543
-</div>
-
 <!-- POPUP MESSAGGIO -->
 <div class="popup-msg" id="popup-msg">
   <div id="popup-text"></div>
   <button onclick="chiudiPopup()">Chiudi</button>
-</div>
-
-<!-- FOOTER REALIZZATO DA -->
-<div class="footer-right">
-  Realizzato da Mattia
 </div>
 
 <script>
@@ -313,7 +266,7 @@ function creaCalendario(mese, anno) {
   });
 
   const titolo = document.getElementById("mese-titolo");
-  titolo.textContent = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"][mese] + " " + anno;
+  titolo.textContent = ${["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"][mese]} ${anno};
 
   const primo = new Date(anno, mese, 1);
   let start = (primo.getDay() + 6) % 7;
@@ -328,7 +281,7 @@ function creaCalendario(mese, anno) {
     const giorno = document.createElement("div");
     giorno.className = "day";
     giorno.textContent = g;
-    const key = String(mese + 1).padStart(2, '0') + "-" + String(g).padStart(2, '0');
+    const key = ${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')};
     if (compleanni[key]) {
       giorno.classList.add("birthday");
     }
@@ -344,7 +297,7 @@ function mostraPopup(key) {
   const popup = document.getElementById("popup-msg");
   const testo = document.getElementById("popup-text");
   testo.textContent = compleanni[key]
-    ? `🎉 Oggi è il compleanno di ${compleanni[key]}!`
+    ? 🎉 Oggi è il compleanno di ${compleanni[key]}!
     : "📅 Oggi non è il compleanno di nessuno.";
   popup.style.display = "block";
 }
