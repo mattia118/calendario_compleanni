@@ -2,13 +2,15 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Quiz Nodi e Costruzioni - Scout CB4</title>
+  <title>Quiz Scout - Nodi e Costruzioni</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
+      margin: 0;
       font-family: 'Quicksand', sans-serif;
       background: linear-gradient(to bottom, #f1f8e9, #c8e6c9);
       color: #2e4632;
-      padding: 40px;
+      padding: 20px;
       text-align: center;
       transition: background 0.5s, color 0.5s;
     }
@@ -17,30 +19,31 @@
       color: #ffffff;
     }
     h1 {
-      margin-bottom: 30px;
+      font-size: 2em;
+      margin-bottom: 20px;
     }
     .question {
-      margin: 20px auto;
-      padding: 20px;
-      background: #ffffffcc;
-      border-radius: 12px;
-      max-width: 600px;
-      text-align: left;
+      margin: 30px 0;
+      font-size: 1.2em;
     }
-    body.night .question {
-      background: #455a64cc;
-    }
-    .question p {
-      font-weight: bold;
-    }
-    .question label {
+    .answers label {
       display: block;
-      margin: 8px 0;
+      margin: 10px 0;
+      padding: 12px;
+      background-color: #a5d6a7;
+      border-radius: 8px;
       cursor: pointer;
+      transition: background 0.3s;
+    }
+    .answers input[type="radio"] {
+      display: none;
+    }
+    .answers label:hover {
+      background-color: #81c784;
     }
     button {
-      margin-top: 20px;
-      padding: 10px 20px;
+      margin-top: 30px;
+      padding: 12px 24px;
       font-size: 16px;
       background-color: #2e7d32;
       color: white;
@@ -49,68 +52,95 @@
       cursor: pointer;
     }
     .result {
+      font-size: 1.4em;
       margin-top: 30px;
-      font-size: 20px;
       font-weight: bold;
+    }
+    @media (max-width: 600px) {
+      .question {
+        font-size: 1em;
+      }
+      .answers label {
+        font-size: 0.95em;
+        padding: 10px;
+      }
+      button {
+        width: 90%;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>🧠 Quiz su Nodi e Costruzioni Scout</h1>
+  <h1>🧭 Quiz Scout: Nodi e Costruzioni</h1>
 
   <form id="quizForm">
     <div class="question">
-      <p>1. Qual è il nodo ideale per unire due corde di uguale spessore?</p>
-      <label><input type="radio" name="q1" value="0"> Nodo parlato</label>
-      <label><input type="radio" name="q1" value="1"> Nodo piano</label>
-      <label><input type="radio" name="q1" value="0"> Nodo savoia</label>
+      1. Qual è il nodo usato per unire due corde dello stesso spessore?
+      <div class="answers">
+        <label><input type="radio" name="q1" value="0"> Nodo parlato</label>
+        <label><input type="radio" name="q1" value="1"> Nodo piano</label>
+        <label><input type="radio" name="q1" value="0"> Nodo savoia</label>
+      </div>
     </div>
+
     <div class="question">
-      <p>2. Quale nodo è più adatto per iniziare una legatura?</p>
-      <label><input type="radio" name="q2" value="1"> Nodo parlato</label>
-      <label><input type="radio" name="q2" value="0"> Nodo galera</label>
-      <label><input type="radio" name="q2" value="0"> Nodo a otto</label>
+      2. A cosa serve la legatura quadra?
+      <div class="answers">
+        <label><input type="radio" name="q2" value="1"> Unire due pali incrociati</label>
+        <label><input type="radio" name="q2" value="0"> Legare una corda a un palo</label>
+        <label><input type="radio" name="q2" value="0"> Bloccare una carrucola</label>
+      </div>
     </div>
+
     <div class="question">
-      <p>3. A cosa serve la legatura quadrata?</p>
-      <label><input type="radio" name="q3" value="0"> Per legare corde insieme</label>
-      <label><input type="radio" name="q3" value="1"> Per unire pali ad angolo retto</label>
-      <label><input type="radio" name="q3" value="0"> Per fare un nodo sicuro su un moschettone</label>
+      3. Qual è il nodo più adatto per iniziare una legatura?
+      <div class="answers">
+        <label><input type="radio" name="q3" value="1"> Nodo parlato</label>
+        <label><input type="radio" name="q3" value="0"> Nodo a otto</label>
+        <label><input type="radio" name="q3" value="0"> Nodo inglese</label>
+      </div>
     </div>
+
     <div class="question">
-      <p>4. Quale costruzione è tipica per sollevare un oggetto in alto?</p>
-      <label><input type="radio" name="q4" value="0"> Tavolo da campo</label>
-      <label><input type="radio" name="q4" value="1"> Treppiede</label>
-      <label><input type="radio" name="q4" value="0"> Fornello canadese</label>
+      4. Il cavalletto si costruisce con:
+      <div class="answers">
+        <label><input type="radio" name="q4" value="0"> Due pali</label>
+        <label><input type="radio" name="q4" value="1"> Tre pali</label>
+        <label><input type="radio" name="q4" value="0"> Una corda e un telo</label>
+      </div>
     </div>
+
     <div class="question">
-      <p>5. Il nodo savoia è ideale per:</p>
-      <label><input type="radio" name="q5" value="1"> Fermare una corda in un punto</label>
-      <label><input type="radio" name="q5" value="0"> Creare una legatura</label>
-      <label><input type="radio" name="q5" value="0"> Unire due pali</label>
+      5. Il nodo savoia è utile per:
+      <div class="answers">
+        <label><input type="radio" name="q5" value="0"> Legare due pali</label>
+        <label><input type="radio" name="q5" value="1"> Creare una sicura in una corda</label>
+        <label><input type="radio" name="q5" value="0"> Tirare una tenda</label>
+      </div>
     </div>
-    <button type="button" onclick="calcolaPunteggio()">📊 Mostra il punteggio</button>
+
+    <button type="button" onclick="calcolaPunteggio()">📊 Vedi il punteggio</button>
   </form>
 
   <div class="result" id="risultato"></div>
+
   <button onclick="location.href='index.html'">🔙 Torna al calendario</button>
 
   <script>
-    function calcolaPunteggio() {
-      let punteggio = 0;
-      const risposte = document.querySelectorAll('input[type=radio]:checked');
-      risposte.forEach(r => punteggio += parseInt(r.value));
-
-      const messaggio = `Hai totalizzato ${punteggio} punti su 5!`;
-      document.getElementById('risultato').textContent = messaggio;
-    }
-
     function aggiornaTema() {
       const ora = new Date().getHours();
       document.body.classList.toggle("night", ora < 6 || ora > 19);
     }
-
     aggiornaTema();
+
+    function calcolaPunteggio() {
+      let punteggio = 0;
+      const risposte = document.querySelectorAll('input[type="radio"]:checked');
+      risposte.forEach(r => punteggio += parseInt(r.value));
+      const max = 5;
+      const risultato = document.getElementById("risultato");
+      risultato.textContent = `Hai totalizzato ${punteggio} punto${punteggio !== 1 ? 'i' : ''} su ${max}!`;
+    }
   </script>
 </body>
 </html>
