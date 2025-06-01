@@ -25,6 +25,30 @@
       color: #ffffff;
     }
 
+    body.night .day-name {
+      background: #455a64;
+      color: #ffffff;
+    }
+
+    body.night .day {
+      background: #37474f;
+      color: #ffffff;
+    }
+
+    body.night .calendar {
+      background: #455a64cc;
+      border: 1px solid #607d8b;
+    }
+
+    body.night .buttons button {
+      background-color: #78909c;
+      color: #ffffff;
+    }
+
+    body.night .buttons button:hover {
+      background-color: #546e7a;
+    }
+
     .header-top {
       width: 100%;
       max-width: 1000px;
@@ -33,6 +57,7 @@
       align-items: center;
       padding: 20px 0;
     }
+
     .logo-gruppo {
       font-size: 1.2em;
       font-weight: bold;
@@ -41,6 +66,7 @@
       align-items: center;
       gap: 10px;
     }
+
     .scout-icon { font-size: 28px; }
 
     #countdown {
@@ -233,7 +259,7 @@
     const eventi = {
       '06-11': { tipo: 'compleanno', nome: 'Mattia' },
       '06-15': { tipo: 'uscita', nome: 'Uscita a Colle dell’Orso' },
-      '06-20': { tipo: 'incontro', nome: 'Riunionone Reparto' }
+      '06-20': { tipo: 'incontro', nome: 'Riunione Reparto' }
     };
 
     let oggi = new Date();
