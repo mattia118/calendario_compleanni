@@ -45,6 +45,17 @@
     }
     .scout-icon { font-size: 28px; }
     h1 { font-size: 2em; color: #1b5e20; margin-bottom: 5px; }
+
+    #countdown {
+      margin-top: 10px;
+      font-size: 1.1em;
+      color: #1b5e20;
+      background: #dcedc8;
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
     .mese-container {
       display: flex;
       align-items: center;
@@ -62,6 +73,14 @@
       border-radius: 8px;
       box-shadow: 0 0 6px rgba(0,0,0,0.2);
     }
+    #scroll-to-calendar {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    #scroll-to-calendar:hover {
+      transform: scale(1.1);
+    }
+
     .buttons {
       display: flex;
       gap: 10px;
@@ -82,6 +101,7 @@
     .buttons button:hover {
       background-color: #1b5e20;
     }
+
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -141,6 +161,7 @@
       50% { background-color: #81c784; }
       100% { background-color: #f1f8e9; }
     }
+
     footer {
       width: 100%;
       background: #2e4632;
@@ -163,11 +184,15 @@
     <div class="scout-icon">⚜️</div>
   </header>
 
+  <!-- Countdown al prossimo compleanno -->
+  <div id="countdown">⏳ Caricamento giorni al prossimo compleanno...</div>
+
   <h1>Calendario Compleanni Scout</h1>
+
   <div class="mese-container">
     <img src="ChatGPT Image 26 mag 2025, 21_03_29.png" alt="Icona sinistra" />
     <div id="mese-titolo"></div>
-    <img src="ChatGPT Image 26 mag 2025, 21_06_01.png" alt="Icona destra" />
+    <img src="ChatGPT Image 26 mag 2025, 21_06_01.png" alt="Icona destra" id="scroll-to-calendar" />
   </div>
 
   <div class="buttons">
@@ -248,7 +273,37 @@
       creaCalendario(meseCorrente, annoCorrente);
     }
 
+    function giorniAlProssimoCompleanno(dataOggi) {
+      const oggi = new Date(dataOggi);
+      let minDiff = Infinity;
+      let prossimoNome = '';
+      
+      for (let key in compleanni) {
+        const [mese, giorno] = key.split('-').map(Number);
+        let dataCompleanno = new Date(oggi.getFullYear(), mese - 1, giorno);
+        if (dataCompleanno < oggi) {
+          dataCompleanno.setFullYear(oggi.getFullYear() + 1);
+        }
+        const diffGiorni = Math.ceil((dataCompleanno - oggi) / (1000 * 60 * 60 * 24));
+        if (diffGiorni < minDiff) {
+          minDiff = diffGiorni;
+          prossimoNome = compleanni[key];
+        }
+      }
+
+      const messaggio = minDiff === 0
+        ? `🎉 Oggi è il compleanno di ${prossimoNome}!`
+        : `Mancano ${minDiff} giorno${minDiff > 1 ? 'i' : ''} al compleanno di ${prossimoNome}. 🎂`;
+
+      document.getElementById("countdown").textContent = messaggio;
+    }
+
+    document.getElementById("scroll-to-calendar").addEventListener("click", () => {
+      document.getElementById("calendar").scrollIntoView({ behavior: "smooth" });
+    });
+
     creaCalendario(meseCorrente, annoCorrente);
+    giorniAlProssimoCompleanno(new Date());
   </script>
 </body>
 </html>
