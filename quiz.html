@@ -10,6 +10,11 @@
       color: #2e4632;
       padding: 40px;
       text-align: center;
+      transition: background 0.5s, color 0.5s;
+    }
+    body.night {
+      background: linear-gradient(to bottom, #263238, #37474f);
+      color: #ffffff;
     }
     h1 {
       margin-bottom: 30px;
@@ -21,6 +26,9 @@
       border-radius: 12px;
       max-width: 600px;
       text-align: left;
+    }
+    body.night .question {
+      background: #455a64cc;
     }
     .question p {
       font-weight: bold;
@@ -96,6 +104,13 @@
       const messaggio = `Hai totalizzato ${punteggio} punti su 5!`;
       document.getElementById('risultato').textContent = messaggio;
     }
+
+    function aggiornaTema() {
+      const ora = new Date().getHours();
+      document.body.classList.toggle("night", ora < 6 || ora > 19);
+    }
+
+    aggiornaTema();
   </script>
 </body>
 </html>
