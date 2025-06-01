@@ -187,6 +187,7 @@
   <div class="buttons">
     <button id="btn-prev" onclick="cambiaMese(-1)">⬅️ Mese Precedente</button>
     <button onclick="cambiaMese(1)">Mese Successivo ➡️</button>
+    <button onclick="tornaAdOggi()">🔄 Torna ad oggi</button>
   </div>
 
   <div class="calendar" id="calendar"></div>
@@ -270,6 +271,13 @@
       meseCorrente += delta;
       if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
       if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
+      creaCalendario(meseCorrente, annoCorrente);
+    }
+
+    function tornaAdOggi() {
+      const oggi = new Date();
+      meseCorrente = oggi.getMonth();
+      annoCorrente = oggi.getFullYear();
       creaCalendario(meseCorrente, annoCorrente);
     }
 
