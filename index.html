@@ -35,7 +35,6 @@
     }
     .scout-icon { font-size: 28px; }
     h1 { font-size: 2em; color: #1b5e20; margin-bottom: 5px; }
-
     .mese-container {
       display: flex;
       align-items: center;
@@ -53,7 +52,6 @@
       border-radius: 8px;
       box-shadow: 0 0 6px rgba(0,0,0,0.2);
     }
-
     .buttons {
       display: flex;
       gap: 10px;
@@ -141,7 +139,6 @@
       border-radius: 6px;
       cursor: pointer;
     }
-
     .scout-section {
       background: #e8f5e9;
       border-radius: 12px;
@@ -179,6 +176,20 @@
       .scout-legge, .scout-promessa {
         width: 48%;
       }
+    }
+    footer {
+      width: 100%;
+      background: #2e4632;
+      color: #ffffff;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+    footer a {
+      color: #c8e6c9;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -248,6 +259,16 @@
   <div id="popup-text"></div>
   <button onclick="chiudiPopup()">Chiudi</button>
 </div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 14px;">
+    <p><strong>Realizzato da Mattia Spensieri</strong></p>
+    <p>Email: <a href="mailto:mattia.spensieri@gmail.com">mattia.spensieri@gmail.com</a></p>
+    <p>Cell: 328 1234567</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.6;">Scout CB4 - Tutti i diritti riservati</p>
+  </div>
+</footer>
 
 <script>
 let meseCorrente = 4;
