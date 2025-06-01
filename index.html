@@ -188,7 +188,19 @@
     <div class="scout-icon">⚜️</div>
   </header>
 
-  <div id="countdown">⏳ Caricamento giorni al prossimo compleanno...</div>
+  <!-- 🎵 Musica di sottofondo -->
+  <audio id="bg-music" autoplay loop>
+    <source src="Scouting for Boys - Canto scout con testo e accordi.m4a" type="audio/mp4">
+    Il tuo browser non supporta l'audio HTML5.
+  </audio>
+
+  <div style="margin-bottom: 10px;">
+    <button onclick="toggleMusica()" style="background:#2e7d32;color:white;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;">
+      🎵 Pausa / Riprendi Musica
+    </button>
+  </div>
+
+  <div id="countdown">⏳ Caricamento giorni al prossimo evento...</div>
 
   <h1>Calendario Compleanni Scout</h1>
 
@@ -310,6 +322,15 @@
         countdown.textContent = `🎉 Oggi: ${prossimo.tipo} di ${prossimo.nome}!`;
       } else {
         countdown.textContent = `Mancano ${minDiff} giorni al prossimo ${prossimo.tipo}: ${prossimo.nome}`;
+      }
+    }
+
+    function toggleMusica() {
+      const audio = document.getElementById("bg-music");
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
       }
     }
 
