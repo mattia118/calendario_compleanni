@@ -16,6 +16,11 @@
       flex-direction: column;
       align-items: center;
       color: #2e4632;
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     .header-top {
       width: 100%;
@@ -24,6 +29,11 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 0;
+      animation: slideDown 1s ease-out;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
     .logo-gruppo {
       font-size: 1.2em;
@@ -60,13 +70,17 @@
       margin-bottom: 20px;
     }
     .buttons button {
-      background-color: #388e3c;
+      background-color: #2e7d32;
       color: white;
       border: none;
       border-radius: 8px;
       padding: 10px 16px;
       font-size: 14px;
       cursor: pointer;
+      transition: background 0.3s;
+    }
+    .buttons button:hover {
+      background-color: #1b5e20;
     }
     .calendar {
       display: grid;
@@ -78,6 +92,7 @@
       box-shadow: 0 0 12px rgba(0,0,0,0.1);
       max-width: 700px;
       width: 100%;
+      animation: fadeIn 1.5s ease-in;
     }
     .day-name, .day {
       text-align: center;
@@ -91,13 +106,14 @@
       position: relative;
     }
     .day-name {
-      background: #a5d6a7;
-      color: #1b5e20;
+      background: #81c784;
+      color: #ffffff;
     }
     .day {
       background: #f1f8e9;
       cursor: pointer;
       color: #2e4632;
+      transition: background 0.2s;
     }
     .day:hover {
       background: #dcedc8;
@@ -117,66 +133,6 @@
       bottom: 8px;
       right: 8px;
     }
-    .popup-msg {
-      position: fixed;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.2);
-      z-index: 100;
-      display: none;
-      color: #2e4632;
-    }
-    .popup-msg button {
-      margin-top: 15px;
-      background-color: #388e3c;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .scout-section {
-      background: #e8f5e9;
-      border-radius: 12px;
-      padding: 25px 20px;
-      margin: 40px 0;
-      max-width: 700px;
-      width: 100%;
-      font-family: 'Georgia', serif;
-    }
-    .scout-section h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #1b5e20;
-    }
-    .scout-columns {
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-    }
-    .scout-legge ul {
-      list-style-type: "⚜️ ";
-      padding-left: 20px;
-    }
-    .scout-promessa {
-      background: #c8e6c9;
-      padding: 15px;
-      border-left: 5px solid #2e7d32;
-      border-radius: 8px;
-    }
-    @media (min-width: 700px) {
-      .scout-columns {
-        flex-direction: row;
-        justify-content: space-between;
-      }
-      .scout-legge, .scout-promessa {
-        width: 48%;
-      }
-    }
     footer {
       width: 100%;
       background: #2e4632;
@@ -194,156 +150,90 @@
   </style>
 </head>
 <body>
+  <header class="header-top">
+    <div class="logo-gruppo">⛺ GRUPPO SCOUT CB4</div>
+    <div class="scout-icon">⚜️</div>
+  </header>
 
-<header class="header-top">
-  <div class="logo-gruppo">⛺ GRUPPO SCOUT CB4</div>
-  <div class="scout-icon">⚜️</div>
-</header>
-
-<h1>Calendario Compleanni Scout</h1>
-
-<div class="mese-container">
-  <img src="ChatGPT Image 26 mag 2025, 21_03_29.png" alt="Icona sinistra" />
-  <div id="mese-titolo"></div>
-  <img src="ChatGPT Image 26 mag 2025, 21_06_01.png" alt="Icona destra" />
-</div>
-
-<div class="buttons">
-  <button id="btn-prev" onclick="cambiaMese(-1)">⬅️ Mese Precedente</button>
-  <button onclick="cambiaMese(1)">Mese Successivo ➡️</button>
-</div>
-
-<div class="calendar" id="calendar"></div>
-
-<!-- IMMAGINE DI GRUPPO -->
-<div style="margin: 30px 0;">
-  <img src="Screenshot 2025-05-26 alle 17.29.06.png" alt="Foto di gruppo scout"
-       style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
-</div>
-
-<!-- SEZIONE PROMESSA E LEGGE SCOUT -->
-<div class="scout-section">
-  <h2>⚜️ Promessa e Legge Scout</h2>
-  <div class="scout-columns">
-    <div class="scout-legge">
-      <ul>
-        <li>Pongono il loro onore nel meritare fiducia</li>
-        <li>Sono leali</li>
-        <li>Si rendono utili e aiutano gli altri</li>
-        <li>Sono amici di tutti e fratelli di ogni altra guida e scout</li>
-        <li>Sono cortesi</li>
-        <li>Amano e rispettano la natura</li>
-        <li>Sanno obbedire</li>
-        <li>Sorridono e cantano anche nelle difficoltà</li>
-        <li>Sono laboriosi ed economi</li>
-        <li>Sono puri di pensieri, parole e azioni</li>
-      </ul>
-    </div>
-    <div class="scout-promessa">
-      <h3>✝️ PROMESSA SCOUT</h3>
-      <p>
-        Con l'aiuto di Dio<br />
-        prometto sul mio onore<br />
-        di fare del mio meglio:<br /><br />
-        per compiere il mio dovere verso Dio<br />
-        e verso il mio paese,<br />
-        per aiutare gli altri in ogni circostanza,<br />
-        per osservare la Legge scout.
-      </p>
-    </div>
+  <h1>Calendario Compleanni Scout</h1>
+  <div class="mese-container">
+    <img src="ChatGPT Image 26 mag 2025, 21_03_29.png" alt="Icona sinistra" />
+    <div id="mese-titolo"></div>
+    <img src="ChatGPT Image 26 mag 2025, 21_06_01.png" alt="Icona destra" />
   </div>
-</div>
 
-<!-- POPUP MESSAGGIO -->
-<div class="popup-msg" id="popup-msg">
-  <div id="popup-text"></div>
-  <button onclick="chiudiPopup()">Chiudi</button>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 14px;">
-    <p><strong>Realizzato da Mattia Spensieri</strong></p>
-    <p>Email: <a href="mailto:mattia.spensieri@gmail.com">mattia.spensieri@gmail.com</a></p>
-    <p>Cell: 328 1234567</p>
-    <p style="margin-top: 10px; font-size: 12px; opacity: 0.6;">Scout CB4 - Tutti i diritti riservati</p>
+  <div class="buttons">
+    <button id="btn-prev" onclick="cambiaMese(-1)">⬅️ Mese Precedente</button>
+    <button onclick="cambiaMese(1)">Mese Successivo ➡️</button>
   </div>
-</footer>
 
-<script>
-let meseCorrente = 4;
-let annoCorrente = 2025;
-const compleanni = { '05-11': 'Mattia' };
+  <div class="calendar" id="calendar"></div>
 
-function creaCalendario(mese, anno) {
-  const container = document.getElementById("calendar");
-  container.innerHTML = "";
-  const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
-  giorniSettimana.forEach(g => {
-    const d = document.createElement("div");
-    d.className = "day-name";
-    d.textContent = g;
-    container.appendChild(d);
-  });
+  <footer>
+    <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 14px;">
+      <p><strong>Realizzato da Mattia Spensieri</strong></p>
+      <p>Email: <a href="mailto:mattia.spensieri@gmail.com">mattia.spensieri@gmail.com</a></p>
+      <p>Cell: 351 2543043</p>
+      <p style="margin-top: 10px; font-size: 12px; opacity: 0.6;">Scout CB4 - Tutti i diritti riservati</p>
+    </div>
+  </footer>
 
-  const titolo = document.getElementById("mese-titolo");
-  titolo.textContent = `${["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"][mese]} ${anno}`;
+  <script>
+    let oggi = new Date();
+    let meseCorrente = oggi.getMonth();
+    let annoCorrente = oggi.getFullYear();
 
-  const primo = new Date(anno, mese, 1);
-  let start = (primo.getDay() + 6) % 7;
-  for (let i = 0; i < start; i++) {
-    const vuoto = document.createElement("div");
-    vuoto.className = "day empty";
-    container.appendChild(vuoto);
-  }
+    const compleanni = { '05-11': 'Mattia' };
 
-  const giorniTotali = new Date(anno, mese + 1, 0).getDate();
-  for (let g = 1; g <= giorniTotali; g++) {
-    const giorno = document.createElement("div");
-    giorno.className = "day";
-    giorno.textContent = g;
-    const key = `${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
-    if (compleanni[key]) {
-      giorno.classList.add("birthday");
+    function creaCalendario(mese, anno) {
+      const container = document.getElementById("calendar");
+      container.innerHTML = "";
+      const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
+      giorniSettimana.forEach(g => {
+        const d = document.createElement("div");
+        d.className = "day-name";
+        d.textContent = g;
+        container.appendChild(d);
+      });
+
+      const titolo = document.getElementById("mese-titolo");
+      titolo.textContent = `${["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"][mese]} ${anno}`;
+
+      const primo = new Date(anno, mese, 1);
+      let start = (primo.getDay() + 6) % 7;
+      for (let i = 0; i < start; i++) {
+        const vuoto = document.createElement("div");
+        vuoto.className = "day empty";
+        container.appendChild(vuoto);
+      }
+
+      const giorniTotali = new Date(anno, mese + 1, 0).getDate();
+      for (let g = 1; g <= giorniTotali; g++) {
+        const giorno = document.createElement("div");
+        giorno.className = "day";
+        giorno.textContent = g;
+        const key = `${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
+        if (compleanni[key]) {
+          giorno.classList.add("birthday");
+        }
+        giorno.onclick = () => alert(
+          compleanni[key] ? `🎉 Oggi è il compleanno di ${compleanni[key]}!` : "📅 Oggi non è il compleanno di nessuno."
+        );
+        container.appendChild(giorno);
+      }
+
+      document.getElementById("btn-prev").style.display =
+        (anno === 2025 && mese === 4) ? "none" : "inline-block";
     }
-    giorno.onclick = () => mostraPopup(key);
-    container.appendChild(giorno);
-  }
 
-  document.getElementById("btn-prev").style.display =
-    (anno === 2025 && mese === 4) ? "none" : "inline-block";
-}
+    function cambiaMese(delta) {
+      meseCorrente += delta;
+      if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
+      if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
+      creaCalendario(meseCorrente, annoCorrente);
+    }
 
-function mostraPopup(key) {
-  const popup = document.getElementById("popup-msg");
-  const testo = document.getElementById("popup-text");
-  testo.textContent = compleanni[key]
-    ? `🎉 Oggi è il compleanno di ${compleanni[key]}!`
-    : "📅 Oggi non è il compleanno di nessuno.";
-  popup.style.display = "block";
-}
-
-function chiudiPopup() {
-  document.getElementById("popup-msg").style.display = "none";
-}
-
-function cambiaMese(delta) {
-  meseCorrente += delta;
-  if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
-  if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
-  if ((annoCorrente < 2025 || (annoCorrente === 2025 && meseCorrente < 4)) ||
-      (annoCorrente > 2026 || (annoCorrente === 2026 && meseCorrente > 6))) {
-    alert("Intervallo valido: Maggio 2025 - Luglio 2026");
-    meseCorrente -= delta;
-    if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
-    if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
-    return;
-  }
-  creaCalendario(meseCorrente, annoCorrente);
-}
-
-creaCalendario(meseCorrente, annoCorrente);
-</script>
-
+    creaCalendario(meseCorrente, annoCorrente);
+  </script>
 </body>
 </html>
