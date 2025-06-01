@@ -133,6 +133,14 @@
       bottom: 8px;
       right: 8px;
     }
+    .clicked {
+      animation: clickFlash 0.3s ease;
+    }
+    @keyframes clickFlash {
+      0% { background-color: #f1f8e9; }
+      50% { background-color: #81c784; }
+      100% { background-color: #f1f8e9; }
+    }
     footer {
       width: 100%;
       background: #2e4632;
@@ -168,6 +176,11 @@
   </div>
 
   <div class="calendar" id="calendar"></div>
+
+  <div style="margin: 30px 0;">
+    <img src="Screenshot 2025-05-26 alle 17.29.06.png" alt="Foto di gruppo scout"
+         style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
+  </div>
 
   <footer>
     <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 14px;">
@@ -216,9 +229,11 @@
         if (compleanni[key]) {
           giorno.classList.add("birthday");
         }
-        giorno.onclick = () => alert(
-          compleanni[key] ? `🎉 Oggi è il compleanno di ${compleanni[key]}!` : "📅 Oggi non è il compleanno di nessuno."
-        );
+        giorno.onclick = () => {
+          giorno.classList.add("clicked");
+          setTimeout(() => giorno.classList.remove("clicked"), 300);
+          alert(compleanni[key] ? `🎉 Oggi è il compleanno di ${compleanni[key]}!` : "📅 Oggi non è il compleanno di nessuno.");
+        };
         container.appendChild(giorno);
       }
 
