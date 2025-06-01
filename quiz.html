@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Quiz Scout - Scout CB4</title>
+  <title>Quiz Nodi e Costruzioni - Scout CB4</title>
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
@@ -11,22 +11,91 @@
       padding: 40px;
       text-align: center;
     }
-    .back-btn {
-      margin-top: 30px;
+    h1 {
+      margin-bottom: 30px;
+    }
+    .question {
+      margin: 20px auto;
+      padding: 20px;
+      background: #ffffffcc;
+      border-radius: 12px;
+      max-width: 600px;
+      text-align: left;
+    }
+    .question p {
+      font-weight: bold;
+    }
+    .question label {
+      display: block;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+    button {
+      margin-top: 20px;
       padding: 10px 20px;
+      font-size: 16px;
       background-color: #2e7d32;
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
     }
+    .result {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
-  <h1>🧠 Quiz Scout</h1>
-  <p style="max-width: 700px; margin: auto; font-size: 18px;">
-    In questa sezione pubblicheremo domande, sfide e giochi per mettere alla prova la tua conoscenza del mondo scout. Resta aggiornato!
-  </p>
-  <button class="back-btn" onclick="location.href='index.html'">🔙 Torna al calendario</button>
+  <h1>🧠 Quiz su Nodi e Costruzioni Scout</h1>
+
+  <form id="quizForm">
+    <div class="question">
+      <p>1. Qual è il nodo ideale per unire due corde di uguale spessore?</p>
+      <label><input type="radio" name="q1" value="0"> Nodo parlato</label>
+      <label><input type="radio" name="q1" value="1"> Nodo piano</label>
+      <label><input type="radio" name="q1" value="0"> Nodo savoia</label>
+    </div>
+    <div class="question">
+      <p>2. Quale nodo è più adatto per iniziare una legatura?</p>
+      <label><input type="radio" name="q2" value="1"> Nodo parlato</label>
+      <label><input type="radio" name="q2" value="0"> Nodo galera</label>
+      <label><input type="radio" name="q2" value="0"> Nodo a otto</label>
+    </div>
+    <div class="question">
+      <p>3. A cosa serve la legatura quadrata?</p>
+      <label><input type="radio" name="q3" value="0"> Per legare corde insieme</label>
+      <label><input type="radio" name="q3" value="1"> Per unire pali ad angolo retto</label>
+      <label><input type="radio" name="q3" value="0"> Per fare un nodo sicuro su un moschettone</label>
+    </div>
+    <div class="question">
+      <p>4. Quale costruzione è tipica per sollevare un oggetto in alto?</p>
+      <label><input type="radio" name="q4" value="0"> Tavolo da campo</label>
+      <label><input type="radio" name="q4" value="1"> Treppiede</label>
+      <label><input type="radio" name="q4" value="0"> Fornello canadese</label>
+    </div>
+    <div class="question">
+      <p>5. Il nodo savoia è ideale per:</p>
+      <label><input type="radio" name="q5" value="1"> Fermare una corda in un punto</label>
+      <label><input type="radio" name="q5" value="0"> Creare una legatura</label>
+      <label><input type="radio" name="q5" value="0"> Unire due pali</label>
+    </div>
+    <button type="button" onclick="calcolaPunteggio()">📊 Mostra il punteggio</button>
+  </form>
+
+  <div class="result" id="risultato"></div>
+  <button onclick="location.href='index.html'">🔙 Torna al calendario</button>
+
+  <script>
+    function calcolaPunteggio() {
+      let punteggio = 0;
+      const risposte = document.querySelectorAll('input[type=radio]:checked');
+      risposte.forEach(r => punteggio += parseInt(r.value));
+
+      const messaggio = `Hai totalizzato ${punteggio} punti su 5!`;
+      document.getElementById('risultato').textContent = messaggio;
+    }
+  </script>
 </body>
 </html>
