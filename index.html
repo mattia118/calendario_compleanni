@@ -69,7 +69,7 @@
     }
     .buttons {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
       margin-bottom: 20px;
@@ -77,15 +77,18 @@
     .buttons button {
       background-color: #2e7d32;
       color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 16px;
-      font-size: 14px;
+      border: 2px solid #1b5e20;
+      border-radius: 10px;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: all 0.3s;
     }
     .buttons button:hover {
       background-color: #1b5e20;
+      transform: scale(1.05);
     }
     .calendar {
       display: grid;
@@ -154,6 +157,22 @@
       50% { background-color: #81c784; }
       100% { background-color: #f1f8e9; }
     }
+    .leggi-scout {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #e8f5e9;
+      border-left: 6px solid #388e3c;
+      border-radius: 12px;
+    }
+    .leggi-scout h2 {
+      color: #2e7d32;
+    }
+    .leggi-scout ol {
+      line-height: 1.8;
+      font-size: 1em;
+      padding-left: 20px;
+    }
     footer {
       width: 100%;
       background: #2e4632;
@@ -178,6 +197,8 @@
   </header>
 
   <h1>Calendario Compleanni Scout</h1>
+  <p style="font-size: 1.1em; color: #388e3c; margin-bottom: 20px;"><strong>Realizzato da Mattia Spensieri</strong></p>
+
   <div class="mese-container">
     <img src="ChatGPT Image 26 mag 2025, 21_03_29.png" alt="Icona sinistra" />
     <div id="mese-titolo"></div>
@@ -185,25 +206,31 @@
   </div>
 
   <div class="buttons">
-    <button id="btn-prev" onclick="cambiaMese(-1)">⬅️ Mese Precedente</button>
-    <button onclick="cambiaMese(1)">Mese Successivo ➡️</button>
-    <button onclick="tornaAdOggi()">🔄 Torna ad oggi</button>
+    <button onclick="cambiaMese(-1)">⬅️⬅️ <strong>Mese Precedente</strong></button>
+    <button onclick="cambiaMese(1)"><strong>Mese Successivo</strong> ➡️➡️</button>
+    <button onclick="tornaAdOggi()">🔄 <strong>Oggi</strong></button>
   </div>
 
   <div class="calendar" id="calendar"></div>
 
-  <div style="margin: 30px 0;">
-    <img src="Screenshot 2025-05-26 alle 17.29.06.png" alt="Foto di gruppo scout" style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
+  <div class="leggi-scout">
+    <h2>⚜️ Le Leggi Scout</h2>
+    <ol>
+      <li>Lo scout considera la sua onorevole parola più sacra di un giuramento.</li>
+      <li>Lo scout è leale verso la sua patria, i suoi genitori, i suoi capi e i suoi subordinati.</li>
+      <li>Lo scout è utile agli altri e compie ogni giorno una buona azione.</li>
+      <li>Lo scout è amico di tutti e fratello di ogni altro scout.</li>
+      <li>Lo scout è cortese e rispetta gli altri.</li>
+      <li>Lo scout vede nella natura l'opera di Dio e la protegge con amore.</li>
+      <li>Lo scout ubbidisce prontamente e volentieri senza discutere.</li>
+      <li>Lo scout è laborioso ed economo.</li>
+      <li>Lo scout è coraggioso e sopporta con serenità ogni difficoltà.</li>
+      <li>Lo scout è puro nei pensieri, nelle parole e nelle azioni.</li>
+    </ol>
   </div>
 
-  <div style="margin: 40px 0; text-align: center;">
-    <button onclick="window.location.href='storia.html'" style="margin: 10px; padding: 12px 20px; font-size: 16px; border: none; border-radius: 10px; background-color: #2e7d32; color: white; cursor: pointer;">
-      📖 La nostra storia
-    </button>
-    <br>
-    <button onclick="window.location.href='quiz.html'" style="margin: 10px; padding: 12px 20px; font-size: 16px; border: none; border-radius: 10px; background-color: #2e7d32; color: white; cursor: pointer;">
-      🧠 Quiz scout
-    </button>
+  <div style="margin: 30px 0;">
+    <img src="Screenshot 2025-05-26 alle 17.29.06.png" alt="Foto di gruppo scout" style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);" />
   </div>
 
   <footer>
