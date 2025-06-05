@@ -90,6 +90,27 @@
       background-color: #1b5e20;
       transform: scale(1.05);
     }
+    .extra-buttons {
+      margin: 40px 0;
+      text-align: center;
+    }
+    .extra-buttons button {
+      margin: 10px;
+      padding: 16px 24px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      background-color: #43a047;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.2s;
+    }
+    .extra-buttons button:hover {
+      background-color: #2e7d32;
+      transform: scale(1.05);
+    }
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -227,6 +248,11 @@
       <li>Lo scout è coraggioso e sopporta con serenità ogni difficoltà.</li>
       <li>Lo scout è puro nei pensieri, nelle parole e nelle azioni.</li>
     </ol>
+  </div>
+
+  <div class="extra-buttons">
+    <button onclick="window.location.href='storia.html'">📖 La nostra storia</button>
+    <button onclick="window.location.href='quiz.html'">🧠 Quiz scout</button>
   </div>
 
   <div style="margin: 30px 0;">
