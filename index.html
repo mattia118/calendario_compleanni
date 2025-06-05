@@ -224,6 +224,7 @@
   </header>
 
   <div id="countdown" style="font-size: 1.2em; color: #1b5e20; margin-top: 10px;"></div>
+  <div id="benvenuto" style="font-size: 1.1em; color: #4e342e; margin-bottom: 10px;"></div>
   <h1>Calendario Compleanni Scout</h1>
   <p style="font-size: 1.1em; color: #388e3c; margin-bottom: 20px;"><strong>Realizzato da Mattia Spensieri</strong></p>
 
@@ -400,5 +401,9 @@ const frasi = [
 ];
 
 document.getElementById("fraseScout").textContent = frasi[Math.floor(Math.random() * frasi.length)];
+
+let nomeScout = localStorage.getItem('nomeScout') || prompt("Come ti chiami?");
+localStorage.setItem('nomeScout', nomeScout);
+document.getElementById('benvenuto').textContent = `👋 Benvenuto, ${nomeScout}!`;
 
 </script>
