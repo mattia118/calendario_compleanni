@@ -290,120 +290,124 @@
   </audio>
 
   <script>
-    const compleanni = { '06-11': 'Mattia' };
-    let oggi = new Date();
-    let meseCorrente = oggi.getMonth();
-    let annoCorrente = oggi.getFullYear();
+window.onload = function () {
+  const compleanni = { '06-11': 'Mattia' };
+  let oggi = new Date();
+  let meseCorrente = oggi.getMonth();
+  let annoCorrente = oggi.getFullYear();
 
-    function creaCalendario(mese, anno) {
-      const container = document.getElementById("calendar");
-      container.innerHTML = "";
+  function creaCalendario(mese, anno) {
+    const container = document.getElementById("calendar");
+    container.innerHTML = "";
 
-      const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
-      giorniSettimana.forEach(g => {
-        const d = document.createElement("div");
-        d.className = "day-name";
-        d.textContent = g;
-        container.appendChild(d);
-      });
+    const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
+    giorniSettimana.forEach(g => {
+      const d = document.createElement("div");
+      d.className = "day-name";
+      d.textContent = g;
+      container.appendChild(d);
+    });
 
-      const titolo = document.getElementById("mese-titolo");
-      titolo.textContent = `${["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"][mese]} ${anno}`;
+    const titolo = document.getElementById("mese-titolo");
+    titolo.textContent = `${["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"][mese]} ${anno}`;
 
-      const primo = new Date(anno, mese, 1);
-      let start = (primo.getDay() + 6) % 7;
+    const primo = new Date(anno, mese, 1);
+    let start = (primo.getDay() + 6) % 7;
 
-      for (let i = 0; i < start; i++) {
-        const vuoto = document.createElement("div");
-        vuoto.className = "day empty";
-        container.appendChild(vuoto);
-      }
-
-      const giorniTotali = new Date(anno, mese + 1, 0).getDate();
-      for (let g = 1; g <= giorniTotali; g++) {
-        const giorno = document.createElement("div");
-        giorno.className = "day";
-        giorno.textContent = g;
-
-        const key = `${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
-        if (compleanni[key]) giorno.classList.add("birthday");
-
-        giorno.onclick = () => {
-          giorno.classList.add("clicked");
-          setTimeout(() => giorno.classList.remove("clicked"), 300);
-          alert(compleanni[key] ? `🎉 Oggi è il compleanno di ${compleanni[key]}!` : "📅 Oggi non è il compleanno di nessuno.");
-        };
-
-        container.appendChild(giorno);
-      }
+    for (let i = 0; i < start; i++) {
+      const vuoto = document.createElement("div");
+      vuoto.className = "day empty";
+      container.appendChild(vuoto);
     }
 
-    function cambiaMese(delta) {
-      meseCorrente += delta;
-      if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
-      if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
-      creaCalendario(meseCorrente, annoCorrente);
-    }
+    const giorniTotali = new Date(anno, mese + 1, 0).getDate();
+    for (let g = 1; g <= giorniTotali; g++) {
+      const giorno = document.createElement("div");
+      giorno.className = "day";
+      giorno.textContent = g;
 
-    function tornaAdOggi() {
-      const oggi = new Date();
-      meseCorrente = oggi.getMonth();
-      annoCorrente = oggi.getFullYear();
-      creaCalendario(meseCorrente, annoCorrente);
-    }
+      const key = `${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
+      if (compleanni[key]) giorno.classList.add("birthday");
 
-    function aggiornaTema() {
-      const ora = new Date().getHours();
-      document.body.classList.toggle("night", ora < 6 || ora > 19);
-    }
+      giorno.onclick = () => {
+        giorno.classList.add("clicked");
+        setTimeout(() => giorno.classList.remove("clicked"), 300);
+        alert(compleanni[key] ? `🎉 Oggi è il compleanno di ${compleanni[key]}!` : "📅 Oggi non è il compleanno di nessuno.");
+      };
 
-    aggiornaTema();
-    aggiornaCountdown();
-    creaCalendario(meseCorrente, annoCorrente);
-  function aggiornaCountdown() {
-  const oggi = new Date();
-  const compleanniOrdinati = Object.keys(compleanni).sort();
-  let prossimo = null;
-  let minGiorni = Infinity;
-
-  compleanniOrdinati.forEach(key => {
-    const [mese, giorno] = key.split('-').map(Number);
-    let dataCompleanno = new Date(oggi.getFullYear(), mese - 1, giorno);
-    if (dataCompleanno < oggi) {
-      dataCompleanno.setFullYear(oggi.getFullYear() + 1);
+      container.appendChild(giorno);
     }
-    const diff = Math.ceil((dataCompleanno - oggi) / (1000 * 60 * 60 * 24));
-    if (diff < minGiorni) {
-      minGiorni = diff;
-      prossimo = key;
-    }
-  });
-
-  const el = document.getElementById("countdown");
-  if (prossimo) {
-    el.textContent = `🎉 Mancano ${minGiorni} giorni al prossimo compleanno: ${compleanni[prossimo]}`;
-  } else {
-    el.textContent = "Nessun compleanno registrato.";
   }
-}
 
-setInterval(() => {
-  const ora = new Date();
-  document.getElementById('orologioScout').textContent = `🕒 Ora attuale: ${ora.getHours().toString().padStart(2, '0')}:${ora.getMinutes().toString().padStart(2, '0')}:${ora.getSeconds().toString().padStart(2, '0')}`;
-}, 1000);
+  function cambiaMese(delta) {
+    meseCorrente += delta;
+    if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
+    if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
+    creaCalendario(meseCorrente, annoCorrente);
+  }
 
-const frasi = [
-  '“Lascia il mondo un po' migliore di come lo hai trovato.” – B.-P.',
-  '“Sii il cambiamento che vuoi vedere nel mondo.”',
-  '“Un sorriso è la chiave che apre molti cuori.”',
-  '“La felicità non viene dal possedere ma dal dare.”',
-  '“La vera via per essere felici è rendere felici gli altri.”'
-];
+  function tornaAdOggi() {
+    const oggi = new Date();
+    meseCorrente = oggi.getMonth();
+    annoCorrente = oggi.getFullYear();
+    creaCalendario(meseCorrente, annoCorrente);
+  }
 
-document.getElementById("fraseScout").textContent = frasi[Math.floor(Math.random() * frasi.length)];
+  function aggiornaTema() {
+    const ora = new Date().getHours();
+    document.body.classList.toggle("night", ora < 6 || ora > 19);
+  }
 
-let nomeScout = localStorage.getItem('nomeScout') || prompt("Come ti chiami?");
-localStorage.setItem('nomeScout', nomeScout);
-document.getElementById('benvenuto').textContent = `👋 Benvenuto, ${nomeScout}!`;
+  function aggiornaCountdown() {
+    const oggi = new Date();
+    const compleanniOrdinati = Object.keys(compleanni).sort();
+    let prossimo = null;
+    let minGiorni = Infinity;
 
+    compleanniOrdinati.forEach(key => {
+      const [mese, giorno] = key.split('-').map(Number);
+      let dataCompleanno = new Date(oggi.getFullYear(), mese - 1, giorno);
+      if (dataCompleanno < oggi) {
+        dataCompleanno.setFullYear(oggi.getFullYear() + 1);
+      }
+      const diff = Math.ceil((dataCompleanno - oggi) / (1000 * 60 * 60 * 24));
+      if (diff < minGiorni) {
+        minGiorni = diff;
+        prossimo = key;
+      }
+    });
+
+    const el = document.getElementById("countdown");
+    if (prossimo) {
+      el.textContent = `🎉 Mancano ${minGiorni} giorni al prossimo compleanno: ${compleanni[prossimo]}`;
+    } else {
+      el.textContent = "Nessun compleanno registrato.";
+    }
+  }
+
+  setInterval(() => {
+    const ora = new Date();
+    document.getElementById('orologioScout').textContent = `🕒 Ora attuale: ${ora.getHours().toString().padStart(2, '0')}:${ora.getMinutes().toString().padStart(2, '0')}:${ora.getSeconds().toString().padStart(2, '0')}`;
+  }, 1000);
+
+  const frasi = [
+    '“Lascia il mondo un po\' migliore di come lo hai trovato.” – B.-P.',
+    '“Sii il cambiamento che vuoi vedere nel mondo.”',
+    '“Un sorriso è la chiave che apre molti cuori.”',
+    '“La felicità non viene dal possedere ma dal dare.”',
+    '“La vera via per essere felici è rendere felici gli altri.”'
+  ];
+  document.getElementById("fraseScout").textContent = frasi[Math.floor(Math.random() * frasi.length)];
+
+  let nomeScout = localStorage.getItem('nomeScout') || prompt("Come ti chiami?");
+  localStorage.setItem('nomeScout', nomeScout);
+  document.getElementById('benvenuto').textContent = `👋 Benvenuto, ${nomeScout}!`;
+
+  aggiornaTema();
+  aggiornaCountdown();
+  creaCalendario(meseCorrente, annoCorrente);
+
+  window.cambiaMese = cambiaMese;
+  window.tornaAdOggi = tornaAdOggi;
+};
 </script>
