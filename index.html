@@ -223,6 +223,7 @@
     <div class="scout-icon">⚜️</div>
   </header>
 
+  <div id="countdown" style="font-size: 1.2em; color: #1b5e20; margin-top: 10px;"></div>
   <h1>Calendario Compleanni Scout</h1>
   <p style="font-size: 1.1em; color: #388e3c; margin-bottom: 20px;"><strong>Realizzato da Mattia Spensieri</strong></p>
 
@@ -234,6 +235,10 @@
     <img src="ChatGPT Image 26 mag 2025, 21_06_01.png" alt="Icona destra" />
   </div>
 
+  <div style="margin-bottom: 10px;">
+    <button onclick="window.print()" style="margin: 10px; padding: 10px 16px; font-size: 14px; background-color: #00897b; color: white; border: none; border-radius: 8px; cursor: pointer;">🖨️ Scarica calendario in PDF</button>
+    <button onclick="document.body.classList.toggle('night')" style="margin: 10px; padding: 10px 16px; font-size: 14px; background-color: #5e35b1; color: white; border: none; border-radius: 8px; cursor: pointer;">🌗 Cambia tema manualmente</button>
+  </div>
   <div class="buttons">
     <button onclick="cambiaMese(-1)">⬅️⬅️ <strong>Mese Precedente</strong></button>
     <button onclick="cambiaMese(1)"><strong>Mese Successivo</strong> ➡️➡️</button>
@@ -349,5 +354,33 @@
     }
 
     aggiornaTema();
+    aggiornaCountdown();
     creaCalendario(meseCorrente, annoCorrente);
-  </script>
+  function aggiornaCountdown() {
+  const oggi = new Date();
+  const compleanniOrdinati = Object.keys(compleanni).sort();
+  let prossimo = null;
+  let minGiorni = Infinity;
+
+  compleanniOrdinati.forEach(key => {
+    const [mese, giorno] = key.split('-').map(Number);
+    let dataCompleanno = new Date(oggi.getFullYear(), mese - 1, giorno);
+    if (dataCompleanno < oggi) {
+      dataCompleanno.setFullYear(oggi.getFullYear() + 1);
+    }
+    const diff = Math.ceil((dataCompleanno - oggi) / (1000 * 60 * 60 * 24));
+    if (diff < minGiorni) {
+      minGiorni = diff;
+      prossimo = key;
+    }
+  });
+
+  const el = document.getElementById("countdown");
+  if (prossimo) {
+    el.textContent = `🎉 Mancano ${minGiorni} giorni al prossimo compleanno: ${compleanni[prossimo]}`;
+  } else {
+    el.textContent = "Nessun compleanno registrato.";
+  }
+}
+
+</script>
