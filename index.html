@@ -6,8 +6,254 @@
   <title>Calendario Scout CB4</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
   <style>
-    /* TUTTO IL TUO BLOCCO CSS ORIGINALE QUI */
-    /* (questo codice è identico a quello iniziale) */
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, #f1f8e9, #c8e6c9);
+      margin: 0;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #2e4632;
+      animation: fadeIn 1s ease-in;
+      transition: background 0.5s, color 0.5s;
+    }
+    body.night {
+      background: linear-gradient(to bottom, #263238, #37474f);
+      color: #ffffff;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .header-top {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      animation: slideDown 1s ease-out;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .logo-gruppo {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #2e7d32;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .scout-icon { font-size: 28px; }
+    h1 { font-size: 2em; color: #1b5e20; margin-bottom: 5px; }
+    .mese-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+    #mese-titolo {
+      font-size: 1.3em;
+      text-align: center;
+    }
+    .mese-container img {
+      height: 40px;
+      width: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.2);
+    }
+    .buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .buttons button {
+      background-color: #2e7d32;
+      color: white;
+      border: 2px solid #1b5e20;
+      border-radius: 10px;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+    .buttons button:hover {
+      background-color: #1b5e20;
+      transform: scale(1.05);
+    }
+    .extra-buttons {
+      margin: 20px 0 40px;
+      text-align: center;
+    }
+    .extra-buttons p {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #1b5e20;
+      margin-bottom: 10px;
+    }
+    .extra-buttons button {
+      margin: 10px;
+      padding: 16px 24px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      background-color: #43a047;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background 0.3s, transform 0.2s;
+    }
+    .extra-buttons button:hover {
+      background-color: #2e7d32;
+      transform: scale(1.05);
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      background: #ffffffcc;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      max-width: 700px;
+      width: 100%;
+      animation: fadeIn 1.5s ease-in;
+    }
+    body.night .calendar {
+      background: #455a64cc;
+      color: #ffffff;
+    }
+    .day-name, .day {
+      text-align: center;
+      height: 80px;
+      border: 1px solid #c8e6c9;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      position: relative;
+    }
+    .day-name {
+      background: #81c784;
+      color: #ffffff;
+    }
+    body.night .day-name {
+      background: #455a64;
+      color: #ffffff;
+    }
+    .day {
+      background: #f1f8e9;
+      cursor: pointer;
+      color: #2e4632;
+      transition: background 0.2s;
+    }
+    body.night .day {
+      background: #37474f;
+      color: #ffffff;
+    }
+    .day:hover {
+      background: #dcedc8;
+    }
+    .day.empty {
+      background: transparent;
+      border: none;
+      cursor: default;
+    }
+    .day.birthday::after {
+      content: '🎂';
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+    }
+    .clicked {
+      animation: clickFlash 0.3s ease;
+    }
+    @keyframes clickFlash {
+      0% { background-color: #f1f8e9; }
+      50% { background-color: #81c784; }
+      100% { background-color: #f1f8e9; }
+    }
+    .leggi-scout {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #e8f5e9;
+      border-left: 6px solid #388e3c;
+      border-radius: 12px;
+    }
+    .leggi-scout h2 {
+      color: #2e7d32;
+    }
+    .leggi-scout ol {
+      line-height: 1.8;
+      font-size: 1em;
+      padding-left: 20px;
+    }
+    footer {
+      width: 100%;
+      background: #2e4632;
+      color: #ffffff;
+      padding: 20px 0;
+      margin-top: 40px;
+      text-align: center;
+    }
+    footer a {
+      color: #c8e6c9;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+      .extra-buttons button:active {
+      transform: scale(1.12) rotate(-1deg);
+      background-color: #1b5e20;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+
+    .mese-container img {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .mese-container img:hover {
+      transform: scale(1.15);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    img:active {
+      transform: scale(1.3) rotate(1deg);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    button {
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    button:focus {
+      outline: none;
+      transform: scale(1.05);
+    }
+
+    @keyframes pulsate {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .extra-buttons button:hover {
+      animation: pulsate 0.4s ease-in-out;
+    }
   </style>
 </head>
 <body>
@@ -21,6 +267,8 @@
   <h1>Calendario Compleanni Scout</h1>
   <p style="font-size: 1.1em; color: #388e3c; margin-bottom: 20px;"><strong>Realizzato da Mattia Spensieri</strong></p>
 
+  
+
   <div class="mese-container">
     <img src="ChatGPT Image 26 mag 2025, 21_03_29.png" alt="Icona sinistra" />
     <div id="mese-titolo"></div>
@@ -28,10 +276,9 @@
   </div>
 
   <div style="margin-bottom: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
-    <button onclick="window.print()" style="padding: 10px 16px; font-size: 14px; background-color: #00897b; color: white; border: none; border-radius: 8px; cursor: pointer;">🖨️ Scarica calendario in PDF</button>
-    <button onclick="document.body.classList.toggle('night')" style="padding: 10px 16px; font-size: 14px; background-color: #5e35b1; color: white; border: none; border-radius: 8px; cursor: pointer;">🌗 Cambia tema manualmente</button>
-  </div>
-
+  <button onclick="window.print()" style="padding: 10px 16px; font-size: 14px; background-color: #00897b; color: white; border: none; border-radius: 8px; cursor: pointer;">🖨️ Scarica calendario in PDF</button>
+  <button onclick="document.body.classList.toggle('night')" style="padding: 10px 16px; font-size: 14px; background-color: #5e35b1; color: white; border: none; border-radius: 8px; cursor: pointer;">🌗 Cambia tema manualmente</button>
+</div>
   <div class="buttons">
     <button onclick="cambiaMese(-1)">⬅️⬅️ <strong>Mese Precedente</strong></button>
     <button onclick="cambiaMese(1)"><strong>Mese Successivo</strong> ➡️➡️</button>
@@ -68,13 +315,13 @@
 
   <div id="fraseScout" style="margin: 30px 0 10px; font-style: italic; color: #33691e; text-align: center;"></div>
 
-  <footer>
+<footer>
     <p><strong>Realizzato da Mattia Spensieri</strong></p>
     <p>Email: <a href="mailto:mattia.spensieri@gmail.com">mattia.spensieri@gmail.com</a></p>
     <p>Cell: 351 2543043</p>
     <p style="margin-top: 10px; font-size: 12px; opacity: 0.6;">Scout CB4 - Tutti i diritti riservati</p>
-    <div id="orologioScout" style="margin-top: 20px; font-size: 1.1em; font-weight: bold; color: #1b5e20; text-align: center;"></div>
-  </footer>
+  <div id="orologioScout" style="margin-top: 20px; font-size: 1.1em; font-weight: bold; color: #1b5e20; text-align: center;"></div>
+</footer>
 
   <audio autoplay loop>
     <source src="Scouting for Boys - Canto scout con testo e accordi.m4a" type="audio/mp4">
@@ -82,126 +329,124 @@
   </audio>
 
   <script>
-    window.onload = function () {
-      const compleanni = { '06-11': 'Mattia' };
-      let oggi = new Date();
-      let meseCorrente = oggi.getMonth();
-      let annoCorrente = oggi.getFullYear();
+window.onload = function () {
+  const compleanni = { '06-11': 'Mattia' };
+  let oggi = new Date();
+  let meseCorrente = oggi.getMonth();
+  let annoCorrente = oggi.getFullYear();
 
-      function creaCalendario(mese, anno) {
-        const container = document.getElementById("calendar");
-        container.innerHTML = "";
+  function creaCalendario(mese, anno) {
+    const container = document.getElementById("calendar");
+    container.innerHTML = "";
 
-        const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
-        giorniSettimana.forEach(g => {
-          const d = document.createElement("div");
-          d.className = "day-name";
-          d.textContent = g;
-          container.appendChild(d);
-        });
+    const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
+    giorniSettimana.forEach(g => {
+      const d = document.createElement("div");
+      d.className = "day-name";
+      d.textContent = g;
+      container.appendChild(d);
+    });
 
-        const titolo = document.getElementById("mese-titolo");
-        titolo.textContent = `${["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"][mese]} ${anno}`;
+    const titolo = document.getElementById("mese-titolo");
+    titolo.textContent = ${["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"][mese]} ${anno};
 
-        const primo = new Date(anno, mese, 1);
-        let start = (primo.getDay() + 6) % 7;
+    const primo = new Date(anno, mese, 1);
+    let start = (primo.getDay() + 6) % 7;
 
-        for (let i = 0; i < start; i++) {
-          const vuoto = document.createElement("div");
-          vuoto.className = "day empty";
-          container.appendChild(vuoto);
-        }
+    for (let i = 0; i < start; i++) {
+      const vuoto = document.createElement("div");
+      vuoto.className = "day empty";
+      container.appendChild(vuoto);
+    }
 
-        const giorniTotali = new Date(anno, mese + 1, 0).getDate();
-        for (let g = 1; g <= giorniTotali; g++) {
-          const giorno = document.createElement("div");
-          giorno.className = "day";
-          giorno.textContent = g;
+    const giorniTotali = new Date(anno, mese + 1, 0).getDate();
+    for (let g = 1; g <= giorniTotali; g++) {
+      const giorno = document.createElement("div");
+      giorno.className = "day";
+      giorno.textContent = g;
 
-          const key = `${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')}`;
-          if (compleanni[key]) giorno.classList.add("birthday");
+      const key = ${String(mese + 1).padStart(2, '0')}-${String(g).padStart(2, '0')};
+      if (compleanni[key]) giorno.classList.add("birthday");
 
-          giorno.onclick = () => {
-            giorno.classList.add("clicked");
-            setTimeout(() => giorno.classList.remove("clicked"), 300);
-            alert(compleanni[key] ? `🎉 Oggi è il compleanno di ${compleanni[key]}!` : "📅 Oggi non è il compleanno di nessuno.");
-          };
+      giorno.onclick = () => {
+        giorno.classList.add("clicked");
+        setTimeout(() => giorno.classList.remove("clicked"), 300);
+        alert(compleanni[key] ? 🎉 Oggi è il compleanno di ${compleanni[key]}! : "📅 Oggi non è il compleanno di nessuno.");
+      };
 
-          container.appendChild(giorno);
-        }
+      container.appendChild(giorno);
+    }
+  }
+
+  function cambiaMese(delta) {
+    meseCorrente += delta;
+    if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
+    if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
+    creaCalendario(meseCorrente, annoCorrente);
+  }
+
+  function tornaAdOggi() {
+    const oggi = new Date();
+    meseCorrente = oggi.getMonth();
+    annoCorrente = oggi.getFullYear();
+    creaCalendario(meseCorrente, annoCorrente);
+  }
+
+  function aggiornaTema() {
+    const ora = new Date().getHours();
+    document.body.classList.toggle("night", ora < 6 || ora > 19);
+  }
+
+  function aggiornaCountdown() {
+    const oggi = new Date();
+    const compleanniOrdinati = Object.keys(compleanni).sort();
+    let prossimo = null;
+    let minGiorni = Infinity;
+
+    compleanniOrdinati.forEach(key => {
+      const [mese, giorno] = key.split('-').map(Number);
+      let dataCompleanno = new Date(oggi.getFullYear(), mese - 1, giorno);
+      if (dataCompleanno < oggi) {
+        dataCompleanno.setFullYear(oggi.getFullYear() + 1);
       }
-
-      function cambiaMese(delta) {
-        meseCorrente += delta;
-        if (meseCorrente < 0) { meseCorrente = 11; annoCorrente--; }
-        if (meseCorrente > 11) { meseCorrente = 0; annoCorrente++; }
-        creaCalendario(meseCorrente, annoCorrente);
+      const diff = Math.ceil((dataCompleanno - oggi) / (1000 * 60 * 60 * 24));
+      if (diff < minGiorni) {
+        minGiorni = diff;
+        prossimo = key;
       }
+    });
 
-      function tornaAdOggi() {
-        const oggi = new Date();
-        meseCorrente = oggi.getMonth();
-        annoCorrente = oggi.getFullYear();
-        creaCalendario(meseCorrente, annoCorrente);
-      }
+    const el = document.getElementById("countdown");
+    if (prossimo) {
+      el.textContent = 🎉 Mancano ${minGiorni} giorni al prossimo compleanno: ${compleanni[prossimo]};
+    } else {
+      el.textContent = "Nessun compleanno registrato.";
+    }
+  }
 
-      function aggiornaTema() {
-        const ora = new Date().getHours();
-        document.body.classList.toggle("night", ora < 6 || ora > 19);
-      }
+  setInterval(() => {
+    const ora = new Date();
+    document.getElementById('orologioScout').textContent = 🕒 Ora attuale: ${ora.getHours().toString().padStart(2, '0')}:${ora.getMinutes().toString().padStart(2, '0')}:${ora.getSeconds().toString().padStart(2, '0')};
+  }, 1000);
 
-      function aggiornaCountdown() {
-        const oggi = new Date();
-        const compleanniOrdinati = Object.keys(compleanni).sort();
-        let prossimo = null;
-        let minGiorni = Infinity;
+  const frasi = [
+    '“Lascia il mondo un po\' migliore di come lo hai trovato.” – B.-P.',
+    '“Sii il cambiamento che vuoi vedere nel mondo.”',
+    '“Un sorriso è la chiave che apre molti cuori.”',
+    '“La felicità non viene dal possedere ma dal dare.”',
+    '“La vera via per essere felici è rendere felici gli altri.”'
+  ];
+  document.getElementById("fraseScout").textContent = frasi[Math.floor(Math.random() * frasi.length)];
 
-        compleanniOrdinati.forEach(key => {
-          const [mese, giorno] = key.split('-').map(Number);
-          let dataCompleanno = new Date(oggi.getFullYear(), mese - 1, giorno);
-          if (dataCompleanno < oggi) {
-            dataCompleanno.setFullYear(oggi.getFullYear() + 1);
-          }
-          const diff = Math.ceil((dataCompleanno - oggi) / (1000 * 60 * 60 * 24));
-          if (diff < minGiorni) {
-            minGiorni = diff;
-            prossimo = key;
-          }
-        });
+  let nomeScout = localStorage.getItem('nomeScout') || prompt("Come ti chiami?");
+  localStorage.setItem('nomeScout', nomeScout);
+  document.getElementById('benvenuto').textContent = 👋 Benvenuto, ${nomeScout}!;
 
-        const el = document.getElementById("countdown");
-        if (prossimo) {
-          el.textContent = `🎉 Mancano ${minGiorni} giorni al prossimo compleanno: ${compleanni[prossimo]}`;
-        } else {
-          el.textContent = "Nessun compleanno registrato.";
-        }
-      }
+  aggiornaTema();
+  aggiornaCountdown();
+  creaCalendario(meseCorrente, annoCorrente);
 
-      setInterval(() => {
-        const ora = new Date();
-        document.getElementById('orologioScout').textContent = `🕒 Ora attuale: ${ora.getHours().toString().padStart(2, '0')}:${ora.getMinutes().toString().padStart(2, '0')}:${ora.getSeconds().toString().padStart(2, '0')}`;
-      }, 1000);
-
-      const frasi = [
-        '“Lascia il mondo un po\' migliore di come lo hai trovato.” – B.-P.',
-        '“Sii il cambiamento che vuoi vedere nel mondo.”',
-        '“Un sorriso è la chiave che apre molti cuori.”',
-        '“La felicità non viene dal possedere ma dal dare.”',
-        '“La vera via per essere felici è rendere felici gli altri.”'
-      ];
-      document.getElementById("fraseScout").textContent = frasi[Math.floor(Math.random() * frasi.length)];
-
-      let nomeScout = localStorage.getItem('nomeScout') || prompt("Come ti chiami?");
-      localStorage.setItem('nomeScout', nomeScout);
-      document.getElementById('benvenuto').textContent = `👋 Benvenuto, ${nomeScout}!`;
-
-      aggiornaTema();
-      aggiornaCountdown();
-      creaCalendario(meseCorrente, annoCorrente);
-
-      window.cambiaMese = cambiaMese;
-      window.tornaAdOggi = tornaAdOggi;
-    };
-  </script>
-</body>
-</html>
+  window.cambiaMese = cambiaMese;
+  window.tornaAdOggi = tornaAdOggi;
+};
+</script>
